@@ -370,17 +370,17 @@
     <div class="game-container">
         <!-- Elementos de audio -->
         <audio id="backgroundMusic" loop>
-            <source src="https://cabiver.github.io/Regalo//Voicy_undertale shop.mp3" type="audio/mp3">
+            <source src="https://cabiver.github.io/Regalo/Voicy_undertale shop.mp3" type="audio/mp3">
         </audio>
         <audio id="attackSound">
-            <source src="https://cabiver.github.io/Regalo//Voicy_Bullet.mp3" type="audio/mp3">
+            <source src="https://cabiver.github.io/Regalo/Voicy_Bullet.mp3" type="audio/mp3">
         </audio>
         <audio id="celebrationMusic" loop>
-            <source src="https://cabiver.github.io/Regalo//SS501-  Making a lover  Sub Español.mp3" type="audio/mp3">
+            <source src="https://cabiver.github.io/Regalo/SS501-  Making a lover  Sub Español.mp3" type="audio/mp3">
         </audio>
         
         <div id="scene1" class="scene">
-            <img src="https://cabiver.github.io/Regalo//flowey1.png" alt="Flowey" class="character" id="floweyImage">
+            <img src="https://cabiver.github.io/Regalo/flowey1.png" alt="Flowey" class="character" id="floweyImage">
             <div class="dialog-box">
                 <p class="dialog-text" id="dialogText">¡Hola! Soy FLOWEY. FLOWEY la FLOR. Hmm... ¡Eres nuevo en el SUBSUELO, ¿verdad?</p>
                 <span class="next-indicator">▼</span>
@@ -391,7 +391,7 @@
         <!-- Pantalla de ataque -->
         <div id="attackScreen" class="attack-screen">
             <div class="screen-flash" id="screenFlash"></div>
-            <img src="https://cabiver.github.io/Regalo//flowey8.png" alt="Flowey" class="character" id="floweyAttacked">
+            <img src="https://cabiver.github.io/Regalo/flowey8.png" alt="Flowey" class="character" id="floweyAttacked">
             <div class="slash" id="slashEffect"></div>
             <div class="dialog-box">
                 <p class="dialog-text" id="attackDialogText">¡Auch! ¡Eso dolió!</p>
@@ -412,7 +412,7 @@
         <div id="creditScreen" class="credit-screen">
             <h1 class="celebration-text">CON AMOR TU NOVIO</h1>
             <!-- Foto del novio -->
-            <img src="https://cabiver.github.io/Regalo//image.png" alt="Tu novio" class="boyfriend-photo" id="boyfriendPhoto">
+            <img src="https://cabiver.github.io/Regalo/image.png" alt="Tu novio" class="boyfriend-photo" id="boyfriendPhoto">
             <div class="celebration-content">
                 <div id="confettiContainer"></div>
             </div>
@@ -432,31 +432,31 @@
         const dialogStates = [
             {
                 text: "Me han dicho que alguien muy importante llegaria por aca...",
-                image: "/flowey4.png"
+                image: "https://cabiver.github.io/Regalo/flowey4.png"
             },
             {
                 text: "Y es obvio de quien hablo.",
-                image: "/flowey5.png"
+                image: "https://cabiver.github.io/Regalo/flowey5.png"
             },
             {
                 text: "¡¡¡DE MI!!!",
-                image: "/flowey2.png"
+                image: "https://cabiver.github.io/Regalo/flowey2.png"
             },
             {
                 text: "Bueno, dejando el chiste, la persona que me lo dijo tenia mucho LV",
-                image: "/flowey6.png"
+                image: "https://cabiver.github.io/Regalo/flowey6.png"
             },
             {
                 text: "Sabes a lo que me refiero, nivel de LoVe",
-                image: "/flowey3.png"
+                image: "https://cabiver.github.io/Regalo/flowey3.png"
             },
             {
                 text: "Se que esas personas son fastidiosas, Pero no te preocupes",
-                image: "/flowey7.png"
+                image: "https://cabiver.github.io/Regalo/flowey7.png"
             },
             {
                 text: "Algun dia desaparecera, porque si quiera lo querrias buscar",
-                image: "/flowey8.png"
+                image: "https://cabiver.github.io/Regalo/flowey8.png"
             }
         ];
         
@@ -464,31 +464,31 @@
         const attackDialogStates = [
             {
                 text: "¡Auch! ¡Eso dolió!",
-                image: "/flowey8.png"
+                image: "https://cabiver.github.io/Regalo/flowey8.png"
             },
             {
                 text: "¿Por qué me atacas? ¡Estaba siendo amable!",
-                image: "/flowey3.png"
+                image: "https://cabiver.github.io/Regalo/flowey3.png"
             },
             {
                 text: "Espera... ¿hoy es un día especial, verdad?",
-                image: "/flowey4.png"
+                image: "https://cabiver.github.io/Regalo/flowey4.png"
             },
             {
                 text: "Oh, ya entiendo. ¡Tu novio te ha preparado una sorpresa!",
-                image: "/flowey5.png"
+                image: "https://cabiver.github.io/Regalo/flowey5.png"
             },
             {
                 text: "¡Hoy es vuestro aniversario! ¡Felicidades!",
-                image: "/flowey1.png"
+                image: "https://cabiver.github.io/Regalo/flowey1.png"
             },
             {
                 text: "Él quería decirte algo especial...",
-                image: "/flowey6.png"
+                image: "https://cabiver.github.io/Regalo/flowey6.png"
             },
             {
                 text: "Te ha preparado esto con mucho amor...",
-                image: "/flowey7.png"
+                image: "https://cabiver.github.io/Regalo/flowey7.png"
             }
         ];
         
@@ -539,7 +539,7 @@
             // Reproducir la música de fondo al iniciar
 
             setTimeout(() => {
-                backgroundMusic.volume = 0.025; // Ajusta el volumen según necesites
+                backgroundMusic.volume = 0.125; // Ajusta el volumen según necesites
                 backgroundMusic.play().catch(error => {
                     console.log("Reproducción automática bloqueada. Haz clic en la página para iniciar el audio.");
                 });
@@ -670,7 +670,7 @@
             // Cambiar a la música de celebración
             if (backgroundMusic.paused) {
                 // Iniciar la música de celebración
-                celebrationMusic.volume = 0.1;
+                celebrationMusic.volume = 0.2;
                 celebrationMusic.play().catch(error => {
                     console.log("Error al reproducir música de celebración:", error);
                 });
