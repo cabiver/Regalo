@@ -25,6 +25,27 @@
             image-rendering: pixelated;
         }
         
+        .celebration-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+         /* Modificaciones para el contenedor de personajes */
+         .characters-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            opacity: 0; /* Inicialmente invisible */
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .characters-container.active {
+            opacity: 0.7;
+        }
         .game-container {
             width: 600px;
             height: 450px;
@@ -173,10 +194,6 @@
             animation: screenFlash 0.5s;
         }
         
-        .celebration-screen.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
         .credit-screen.active {
             opacity: 1;
             pointer-events: auto;
@@ -195,13 +212,14 @@
             font-size: 36px;
             text-align: center;
             margin-bottom: 30px;
-            color: #ffff00;
-            text-shadow: 2px 2px 0 #ff00ff;
+            color: #bbb016;
+            text-shadow: 2px 2px 0 #0b53cb;
             font-family: '8BitOperator', 'Courier New', monospace;
         }
         
         .final-note {
             position: absolute;
+            padding: 0 6px 0 6px;
             bottom: 30px;
             font-size: 18px;
             font-style: italic;
@@ -213,34 +231,32 @@
             width: 180px;
             height: 180px;
             border-radius: 50%;
-            border: 4px solid #ffff00;
+            border: 4px solid #bbb016;
             margin-top: 20px;
-            box-shadow: 0 0 20px #ff00ff;
+            box-shadow: 0 0 20px #0b53cb;
         }
-        
-        /* Nuevo estilo para el círculo de personajes */
-        .celebration-box {
-            position: relative;
-            right: 600px;
-            top: -200px;
-        }
-        /* Nuevo estilo para el círculo de personajes */
+
+        /* Ajustes para el círculo de personajes */
         .circle-characters {
-            position: absolute;
+            position: relative;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        
+
         .circle-character {
-            width: 80px;
-            z-index: 999;
             position: absolute;
+            width: 80px;
+            height: auto;
+            display: none; /* Inicialmente oculto */
             transform-origin: center;
         }
-        
+
+        .circle-character.active {
+            display: block;
+        }
         /* Confeti pixelado */
         .confetti {
             position: absolute;
@@ -250,14 +266,14 @@
             opacity: 0;
         }
         
-        /* Contenedor de confeti elevado */
         #confettiContainer {
             position: absolute;
             width: 100%;
             height: 100%;
-            top: -140px; /* Iniciar confeti más arriba */
+            top: -80px !important; /* Increase the negative top value */
             left: 0;
             pointer-events: none;
+            z-index: 3;
         }
         .opacity-0 {
             opacity: 0;
@@ -276,7 +292,7 @@
         
         @keyframes float {
             0% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
             100% { transform: translateY(0) rotate(0deg); }
         }
         
@@ -302,19 +318,39 @@
         
         /* Estilos responsive para móvil */
         @media (max-width: 768px) {
+            #confettiContainer{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: -20px !important; /* Posición más arriba para móviles */
+                left: 0;
+                pointer-events: none;
+                z-index: 3; /* Asegurar que esté por encima de otros elementos */
+            }
+            .characters-container{
+                height: 30%;
+
+            }
             .game-container {
                 width: 100%;
                 height: 100vh;
                 border: none;
             }
             
-            .dialog-box {
-                width: 90%;
-                padding: 15px;
-            }
             
             .dialog-text {
                 font-size: 18px;
+                padding-left: 5px; /* Añadir padding izquierdo */
+                padding-right: 5px; /* Añadir padding derecho */
+                text-align: left; /* Asegurar que el texto esté alineado a la izquierda */
+                word-wrap: break-word; /* Permitir que las palabras se rompan */
+                white-space: normal; /* Evitar que el texto se desborde */
+                margin: 5px 0; /* Añadir un poco de margen vertical */
+            }
+            
+            /* Aumentar el espacio entre el texto y los personajes en escritorio */
+            .dialog-box {
+                margin-bottom: 30px; /* Añadir más espacio debajo del cuadro de diálogo */
             }
             
             .celebration-text {
@@ -339,19 +375,48 @@
                 width: 150px;
                 height: 150px;
             }
+            .circle-characters {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+                grid-template-rows: repeat(2, auto); /* 2 filas */
+                gap: 15px; /* Espacio entre los personajes */
+                width: 95%;
+                height: auto;
+                justify-items: center;
+                align-items: center;
+                margin: 0 auto;
+                padding-top: 20px;
+            }
+                
+            .circle-character {
+                position: relative !important;
+                height: auto !important;
+                left: auto !important;
+                top: auto !important;
+                margin: 5px;
+            }
+            
+            .celebration-screen, .credit-screen {
+                padding: 20px;
+                box-sizing: border-box;
+            }
+            .confetti {
+                top: -10px !important; /* Inicio más arriba para el confeti individual */
+            }
         }
         
         @media (max-width: 480px) {
+            .dialog-text {
+                font-size: 16px;
+                padding-left: 3px; /* Menos padding para pantallas muy pequeñas */
+                margin: 3px 0;
+            }
             .dialog-text {
                 font-size: 16px;
             }
             
             .celebration-text {
                 font-size: 24px;
-            }
-            
-            .circle-character {
-                width: 40px;
             }
             
             .character {
@@ -363,6 +428,12 @@
                 width: 120px;
                 height: 120px;
             }
+            .circle-characters {
+                grid-template-columns: repeat(4, 1fr); /* Mantener 4 columnas */
+                gap: 10px; /* Reducir espacio en pantallas muy pequeñas */
+            }
+            
+                
         }
     </style>
 </head>
@@ -410,7 +481,7 @@
         </div> 
         <!-- Pantalla de creditos -->
         <div id="creditScreen" class="credit-screen">
-            <h1 class="celebration-text">CON AMOR TU NOVIO</h1>
+            <h1 class="celebration-text">CON AMOR: TU NOVIO</h1>
             <!-- Foto del novio -->
             <img src="https://cabiver.github.io/Regalo/image.png" alt="Tu novio" class="boyfriend-photo" id="boyfriendPhoto">
             <div class="celebration-content">
@@ -524,14 +595,14 @@
         
         // Personajes para colocar en círculo
         const characters = [
-            { name: "Sans", img: "https://cabiver.github.io/Regalo//Sans1.png", width: 100},
-            { name: "Papyrus", img: "https://cabiver.github.io/Regalo//Papyrus1.png", width: 100 },
-            { name: "Toriel", img: "https://cabiver.github.io/Regalo//Toriel1.png" , width: 120},
-            { name: "Undyne", img: "https://cabiver.github.io/Regalo//Undyne1.png" , width: 100},
-            { name: "Alphys", img: "https://cabiver.github.io/Regalo//Alphys2.png" , width: 120},
-            { name: "Asgore", img: "https://cabiver.github.io/Regalo//Asgore Dreemurr2.png" , width: 230},
-            { name: "Mettaton", img: "https://cabiver.github.io/Regalo//Metatton1.png" , width: 150},
-            { name: "Asriel", img: "https://cabiver.github.io/Regalo//Asriel Dremur1.png" , width: 70}
+            { name: "Sans", img: "https://cabiver.github.io/Regalo//Sans1.png", width: 100, widthMobile: 60},
+            { name: "Papyrus", img: "https://cabiver.github.io/Regalo//Papyrus1.png", width: 100, widthMobile: 60},
+            { name: "Toriel", img: "https://cabiver.github.io/Regalo//Toriel1.png" , width: 120, widthMobile: 65},
+            { name: "Undyne", img: "https://cabiver.github.io/Regalo//Undyne1.png" , width: 100, widthMobile: 60},
+            { name: "Alphys", img: "https://cabiver.github.io/Regalo//Alphys2.png" , width: 120, widthMobile: 70},
+            { name: "Asriel", img: "https://cabiver.github.io/Regalo//Asriel Dremur1.png" , width: 70, widthMobile: 50},
+            { name: "Mettaton", img: "https://cabiver.github.io/Regalo//Metatton1.png" , width: 150, widthMobile: 85},
+            { name: "Asgore", img: "https://cabiver.github.io/Regalo//Asgore Dreemurr2.png" , width: 230, widthMobile: 95}
         ];
         
         // Función para iniciar la música de fondo al cargar la página
@@ -547,37 +618,82 @@
             
         }
         
-        // Crear el círculo de personajes
+        // Función corregida para crear el círculo de personajes
         function createCharacterCircle() {
-            circleCharacters.innerHTML = ''; // Limpiar personajes existentes
+            const circleCharacters = document.getElementById('circleCharacters');
+            circleCharacters.innerHTML = '';
             
-            // Aumentar el radio para alejar más los personajes del centro
-            const radius = Math.min(gameContainer.offsetWidth, gameContainer.offsetHeight) / 1.2; // Reducido para alejar
-            const centerX = gameContainer.offsetWidth / 2;
-            const centerY = gameContainer.offsetHeight / 2.5;
+            const isMobile = window.innerWidth <= 768;
             
-            characters.forEach((character, index) => {
-                let mitad = character.width / 2;
-                const angle = (index / characters.length) * Math.PI * 2;
-                const x = centerX + radius * Math.cos(angle) - mitad; // 40 es la mitad del ancho de la imagen
-                const y = centerY + radius * Math.sin(angle) - mitad; // 40 es la mitad del alto de la imagen
+            if (isMobile) {
+                // Para móviles, diseño de 4 arriba y 4 abajo
+                characters.forEach((character, index) => {
+                    const charElement = document.createElement('img');
+                    console.log("nojoda :", character.widthMobile)
+                    // Ajustar tamaño según el ancho de pantalla
+                    const width = character.widthMobile;
+                    charElement.style.width = `${width}px`;
+                    
+                    charElement.src = character.img;
+                    charElement.alt = character.name;
+                    charElement.className = 'circle-character active';
+                    
+                    // Aplicar animación flotante
+                    charElement.style.animation = `float ${1.5 + Math.random()}s infinite alternate ease-in-out`;
+                    charElement.style.animationDelay = `${Math.random() * 1.5}s`;
+                    
+                    circleCharacters.appendChild(charElement);
+                });
+            } else {
+                    console.log("ES PC")
+                // Para PC, mantener diseño circular
+                const radius = Math.min(gameContainer.offsetWidth, gameContainer.offsetHeight) / 2.2;
+                const centerX = gameContainer.offsetWidth / 2;
+                const centerY = gameContainer.offsetHeight / 2 - 30;
                 
-                const charElement = document.createElement('img');
-                if(character.width){
-                    charElement.style.width = character.width + 'px';
+                characters.forEach((character, index) => {
+                    const width = character.width || 80;
+                    const halfWidth = width / 2;
+                    
+                    const angle = (index / characters.length) * Math.PI * 2;
+                    const x = centerX + radius * Math.cos(angle) - halfWidth;
+                    const y = centerY + radius * Math.sin(angle) - halfWidth;
+                    
+                    const charElement = document.createElement('img');
+                    charElement.style.width = width + 'px';
+                    charElement.src = character.img;
+                    charElement.alt = character.name;
+                    charElement.className = 'circle-character active';
+                    charElement.style.left = x + 'px';
+                    charElement.style.top = y + 'px';
+                    
+                    charElement.style.animation = `float ${2 + Math.random()}s infinite alternate ease-in-out`;
+                    charElement.style.animationDelay = `${Math.random() * 2}s`;
+                    
+                    circleCharacters.appendChild(charElement);
+                });
+            }
+            
+            // Resto del código para mostrar los personajes
+            let charactersContainer = document.querySelector('.characters-container');
+            
+            if (!charactersContainer) {
+                charactersContainer = document.createElement('div');
+                charactersContainer.className = 'characters-container';
+                gameContainer.appendChild(charactersContainer);
+            }
+            
+            if (!charactersContainer.contains(circleCharacters)) {
+                if (circleCharacters.parentElement) {
+                    circleCharacters.parentElement.removeChild(circleCharacters);
                 }
-                charElement.src = character.img;
-                charElement.alt = character.name;
-                charElement.className = 'circle-character';
-                charElement.style.left = x + 'px';
-                charElement.style.top = y + 'px';
-                charElement.style.animation = `float ${1 + Math.random()}s infinite alternate ease-in-out`;
-                charElement.style.animationDelay = `${Math.random() * 2}s`;
-                
-                
-                circleCharacters.appendChild(charElement);
-            });
+                charactersContainer.appendChild(circleCharacters);
+            }
+            
+            charactersContainer.classList.add('active');
+            
         }
+
         
         // Función para mostrar la animación de ataque
         function showAttackAnimation() {
@@ -657,15 +773,19 @@
         
         // Función para mostrar la pantalla de celebración
         function showCelebration() {
-            
             // Pausar la música de fondo
             backgroundMusic.pause();
             
             attackScreen.classList.remove('active');
             celebrationScreen.classList.add('active');
             scene1.classList.add('opacity-0');
-            createCharacterCircle();
-            createConfetti();
+            
+            // Asegurarse de que los personajes no aparezcan antes de tiempo
+            // Crear el círculo de personajes solo cuando estemos en la pantalla de celebración
+            setTimeout(() => {
+                createCharacterCircle();
+                createConfetti();
+            }, 500);
             
             // Cambiar a la música de celebración
             if (backgroundMusic.paused) {
@@ -678,12 +798,13 @@
             
             // Configurar un temporizador para mostrar la pantalla de créditos después de unos segundos
             setTimeout(showCredits, 20000);
-        }
+}
         
         // Crear confeti pixelado
         function createConfetti() {
             const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
             const confettiCount = 100;
+            const isMobile = window.innerWidth <= 768;
             
             for (let i = 0; i < confettiCount; i++) {
                 setTimeout(() => {
@@ -691,19 +812,29 @@
                     confetti.className = 'confetti';
                     confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.left = Math.random() * gameContainer.offsetWidth + 'px';
-                    // Iniciar desde más arriba (ya está posicionado con top: -100px en el CSS)
-                    confetti.style.top = (-Math.random() * 100) + 'px';
+                    
+                    // Posicionamiento diferente según el dispositivo
+                    if (isMobile) {
+                        // Para móviles, iniciar desde más arriba
+                        confetti.style.top = (-Math.random() * 10 - 10) + 'px';
+                    } else {
+                        // Para escritorio, mantener la posición original
+                        confetti.style.top = (-Math.random() * 100) + 'px';
+                    }
+                    
                     confetti.style.width = Math.floor(Math.random() * 5) + 5 + 'px';
                     confetti.style.height = Math.floor(Math.random() * 5) + 5 + 'px';
-                    // Caída más lenta
-                    confetti.style.animation = `fall ${Math.random() * 4 + 3}s linear forwards`;
+                    
+                    // Duración de caída según dispositivo
+                    const fallDuration = isMobile ? Math.random() * 3 + 2 : Math.random() * 4 + 3;
+                    confetti.style.animation = `fall ${fallDuration}s linear forwards`;
                     
                     confettiContainer.appendChild(confetti);
                     
-                    // Eliminar confeti después de la animación para evitar sobrecarga de memoria
+                    // Eliminar confeti después de la animación
                     setTimeout(() => {
                         confetti.remove();
-                    }, 7000); // Tiempo aumentado para compensar la animación más lenta
+                    }, fallDuration * 1000 + 1000);
                 }, i * 50);
             }
             
@@ -741,7 +872,7 @@
                 startBackgroundMusic(1300);
             }
         });
-        
+        startBackgroundMusic(1300);
         gameContainer.addEventListener('click', function(event) {
             if(NoLoop && !inAttackDialogue){
                 return;
@@ -766,28 +897,33 @@
             // Opcional: puedes agregar alguna interacción aquí si lo deseas
         });
 
-        // Detectar si es dispositivo móvil para ajustes adicionales
+        // // Detectar si es dispositivo móvil para ajustes adicionales
         function checkMobile() {
             if (window.innerWidth <= 768) {
                 // Ajustes adicionales para móvil si son necesarios
-                createCharacterCircle(); // Actualizar la posición de los personajes en caso de cambio de tamaño
+                // createCharacterCircle(); // Actualizar la posición de los personajes en caso de cambio de tamaño
+                return true
             }
+            return false
         }
 
-        // Función para actualizar el tamaño y posición de los personajes según el tamaño de la pantalla
+        // Función mejorada para actualizar el tamaño y posición de los personajes según el tamaño de la pantalla
         function updateCharacterPositions() {
-            if (celebrationScreen.classList.contains('active')) {
+            if (celebrationScreen.classList.contains('active') || creditScreen.classList.contains('active')) {
                 createCharacterCircle();
+            } else {
+                // Asegurarse de que los personajes estén ocultos si no estamos en la pantalla de celebración
+                const container = document.querySelector('.characters-container');
+                if (container) {
+                    container.classList.remove('active');
+                }
             }
         }
-
         // Inicializar
         window.addEventListener('load', function() {
             checkMobile();
             loadBoyfriendPhoto();
             
-            // Intentar iniciar la música de fondo (podría ser bloqueado por políticas del navegador)
-            startBackgroundMusic(0);
             
             // Agregar script de WebFontLoader si no está ya incluido
             if (typeof WebFontConfig === 'undefined') {
@@ -802,6 +938,21 @@
             checkMobile();
             updateCharacterPositions();
         });
+        
+        // Reemplaza la función existente o agrega esta nueva función
+        function checkAndFixVisibility() {
+            // Ocultar los personajes si no estamos en la pantalla de celebración o créditos
+            if (!celebrationScreen.classList.contains('active') && !creditScreen.classList.contains('active')) {
+                const container = document.querySelector('.characters-container');
+                if (container && container.classList.contains('active')) {
+                    container.classList.remove('active');
+                }
+            }
+        }
+
+        // // Llamar a esta función periódicamente para asegurar que los personajes no aparezcan antes de tiempo
+        // setInterval(checkAndFixVisibility, 1000);
+        
     </script>
 </body>
 </html>
