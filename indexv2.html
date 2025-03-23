@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undertale - Flowey Dialog</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', monospace;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .game-container {
+            width: 600px;
+            height: 450px;
+            position: relative;
+            border: 4px solid white;
+            overflow: hidden;
+        }
+        
+        .scene {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .character {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        
+        .dialog-box {
+            background-color: black;
+            border: 4px solid white;
+            width: 80%;
+            padding: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .dialog-text {
+            font-size: 24px;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .next-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 24px;
+            animation: blink 1s infinite;
+        }
+        
+        .button {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .celebration-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+        
+        .celebration-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .celebration-text {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffff00;
+            text-shadow: 2px 2px 0 #ff00ff;
+        }
+        
+        .final-note {
+            position: absolute;
+            bottom: 30px;
+            font-size: 18px;
+            font-style: italic;
+            color: #aaaaaa;
+        }
+        
+        /* Confeti pixelado */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            opacity: 0;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(450px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="scene1" class="scene">
+            <img src="/api/placeholder/150/150" alt="Flowey" class="character" id="floweyImage">
+            <div class="dialog-box">
+                <p class="dialog-text" id="dialogText">¡Hola! Soy FLOWEY. FLOWEY la FLOR. Hmm... ¡Eres nuevo en el SUBSUELO, ¿verdad?</p>
+                <span class="next-indicator">▼</span>
+            </div>
+            <button class="button" id="nextButton">Siguiente</button>
+        </div>
+
+        <!-- Pantalla de celebración -->
+        <div id="celebrationScreen" class="celebration-screen">
+            <h1 class="celebration-text">¡FELIZ ANIVERSARIO!</h1>
+            <div id="confettiContainer"></div>
+            <p class="final-note">al final sigues siendo tu</p>
+        </div>
+    </div>
+
+    <script>
+        // Estado del diálogo
+        const dialogStates = [
+            {
+                text: "¡Hola! Soy FLOWEY. FLOWEY la FLOR. Hmm... ¡Eres nuevo en el SUBSUELO, ¿verdad?",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "Alguien debería enseñarte cómo funcionan las cosas por aquí...",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "Supongo que tendrá que ser yo. ¿Estás listo? ¡Aquí vamos!",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "¿Ves ese corazón? ¡Esa es tu ALMA, la culminación de tu ser!",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "Tu ALMA comienza débil, pero puede fortalecerse si ganas mucho NV.",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "¿Qué es NV? Es NIVEL DE VIOLENCIA, por supuesto.",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "¿Quieres más NV, verdad? No te preocupes, compartiré un poco contigo...",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "¡Aquí en el SUBSUELO, el amor se comparte a través de... pequeñas... 'amistades blancas'!",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "¿Estás listo? ¡Consigue todas las que puedas!",
+                image: "/api/placeholder/150/150"
+            },
+            {
+                text: "Jejeje... ¿POR QUÉ EVITARÍAS? ¡EN ESTE MUNDO, ES MATAR O SER MATADO!",
+                image: "/api/placeholder/150/150"
+            }
+        ];
+        
+        let currentDialogIndex = 0;
+        const dialogText = document.getElementById('dialogText');
+        const floweyImage = document.getElementById('floweyImage');
+        const nextButton = document.getElementById('nextButton');
+        const gameContainer = document.querySelector('.game-container');
+        const celebrationScreen = document.getElementById('celebrationScreen');
+        const confettiContainer = document.getElementById('confettiContainer');
+        
+        // Función para actualizar el diálogo
+        function updateDialog() {
+            if (currentDialogIndex < dialogStates.length) {
+                const currentState = dialogStates[currentDialogIndex];
+                dialogText.textContent = currentState.text;
+                floweyImage.src = currentState.image;
+                currentDialogIndex++;
+            } else {
+                // Mostrar pantalla de celebración
+                showCelebration();
+            }
+        }
+        
+        // Función para mostrar la pantalla de celebración
+        function showCelebration() {
+            celebrationScreen.classList.add('active');
+            createConfetti();
+        }
+        
+        // Crear confeti pixelado
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 600 + 'px';
+                    confetti.style.top = '0px';
+                    confetti.style.width = Math.floor(Math.random() * 5) + 5 + 'px';
+                    confetti.style.height = Math.floor(Math.random() * 5) + 5 + 'px';
+                    confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    // Eliminar confeti después de la animación para evitar sobrecarga de memoria
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
+            }
+            
+            // Continuar generando confeti
+            setTimeout(createConfetti, 5000);
+        }
+        
+        // Event listeners
+        nextButton.addEventListener('click', updateDialog);
+        gameContainer.addEventListener('click', function(event) {
+            // Evitar que el clic en el botón active ambos eventos
+            if (event.target !== nextButton) {
+                updateDialog();
+            }
+        });
+        
+        // También permitir hacer clic en la pantalla de celebración para reiniciar
+        celebrationScreen.addEventListener('click', function() {
+            celebrationScreen.classList.remove('active');
+            currentDialogIndex = 0;
+            updateDialog();
+        });
+    </script>
+</body>
+</html>

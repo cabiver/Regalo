@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undertale - Flowey Dialog</title>
+    <style>
+        @font-face {
+            font-family: '8BitOperator';
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js');
+            /* Nota: En un entorno real, necesitarías cargar el archivo de fuente correcto */
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: '8BitOperator', 'Courier New', monospace;
+            color: white;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+        
+        .game-container {
+            width: 600px;
+            height: 450px;
+            position: relative;
+            border: 4px solid white;
+            overflow: hidden;
+        }
+        
+        .scene {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .character {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+        }
+        
+        .dialog-box {
+            background-color: black;
+            border: 4px solid white;
+            width: 80%;
+            padding: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+        
+        .dialog-text {
+            font-size: 24px;
+            line-height: 1.4;
+            margin: 0;
+        }
+        
+        .next-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 24px;
+            animation: blink 1s infinite;
+        }
+        
+        .button {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            margin-top: 20px;
+            font-family: '8BitOperator', 'Courier New', monospace;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .celebration-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+        
+        .credit-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+        
+        /* Pantalla de ataque */
+        .attack-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .attack-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 3;
+        }
+        
+        /* Efecto de ataque */
+        .slash {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 10px solid white;
+            border-top: none;
+            border-right: none;
+            transform: rotate(135deg) scale(0);
+            opacity: 0;
+        }
+        
+        .slash.animate {
+            animation: slashAttack 0.5s ease-out forwards;
+        }
+        
+        .flowey-hurt {
+            animation: hurtAnimation 0.3s ease-in-out 3;
+        }
+        
+        .screen-flash {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            opacity: 0;
+            z-index: 2;
+        }
+        
+        .screen-flash.flash {
+            animation: screenFlash 0.5s;
+        }
+        
+        .celebration-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .credit-screen.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 4;
+        }
+        
+        .celebration-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+        
+        .celebration-text {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ffff00;
+            text-shadow: 2px 2px 0 #ff00ff;
+            font-family: '8BitOperator', 'Courier New', monospace;
+        }
+        
+        .final-note {
+            position: absolute;
+            bottom: 30px;
+            font-size: 18px;
+            font-style: italic;
+            color: #aaaaaa;
+            font-family: '8BitOperator', 'Courier New', monospace;
+        }
+        
+        .boyfriend-photo {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px solid #ffff00;
+            margin-top: 20px;
+            box-shadow: 0 0 20px #ff00ff;
+        }
+        
+        /* Nuevo estilo para el círculo de personajes */
+        .celebration-box {
+            position: relative;
+            right: 600px;
+            top: -150px;
+        }
+        /* Nuevo estilo para el círculo de personajes */
+        .circle-characters {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .circle-character {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            transform-origin: center;
+        }
+        
+        /* Confeti pixelado */
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            opacity: 0;
+        }
+        
+        /* Contenedor de confeti elevado */
+        #confettiContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: -140px; /* Iniciar confeti más arriba */
+            left: 0;
+            pointer-events: none;
+        }
+        .opacity-0 {
+            opacity: 0;
+        }
+        
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes fall {
+            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(450px) rotate(360deg); opacity: 0; }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        @keyframes slashAttack {
+            0% { transform: rotate(135deg) scale(0); opacity: 0; }
+            10% { transform: rotate(135deg) scale(0.3); opacity: 1; }
+            100% { transform: rotate(135deg) scale(1.5); opacity: 0; }
+        }
+        
+        @keyframes hurtAnimation {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        
+        @keyframes screenFlash {
+            0% { opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { opacity: 0; }
+        }
+        
+        /* Estilos responsive para móvil */
+        @media (max-width: 768px) {
+            .game-container {
+                width: 100%;
+                height: 100vh;
+                border: none;
+            }
+            
+            .dialog-box {
+                width: 90%;
+                padding: 15px;
+            }
+            
+            .dialog-text {
+                font-size: 18px;
+            }
+            
+            .celebration-text {
+                font-size: 28px;
+            }
+            
+            .circle-character {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .character {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .button {
+                padding: 8px 16px;
+                font-size: 16px;
+            }
+            
+            .boyfriend-photo {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .dialog-text {
+                font-size: 16px;
+            }
+            
+            .celebration-text {
+                font-size: 24px;
+            }
+            
+            .circle-character {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .character {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .boyfriend-photo {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="scene1" class="scene">
+            <img src="/flowey1.png" alt="Flowey" class="character" id="floweyImage">
+            <div class="dialog-box">
+                <p class="dialog-text" id="dialogText">¡Hola! Soy FLOWEY. FLOWEY la FLOR. Hmm... ¡Eres nuevo en el SUBSUELO, ¿verdad?</p>
+                <span class="next-indicator">▼</span>
+            </div>
+            <button class="button" id="nextButton">Siguiente</button>
+        </div>
+
+        <!-- Pantalla de ataque -->
+        <div id="attackScreen" class="attack-screen">
+            <div class="screen-flash" id="screenFlash"></div>
+            <img src="/flowey8.png" alt="Flowey" class="character" id="floweyAttacked">
+            <div class="slash" id="slashEffect"></div>
+            <div class="dialog-box">
+                <p class="dialog-text" id="attackDialogText">¡Auch! ¡Eso dolió!</p>
+                <span class="next-indicator">▼</span>
+            </div>
+            <button class="button" id="attackNextButton">Siguiente</button>
+        </div>
+
+        <!-- Pantalla de celebración -->
+        <div id="celebrationScreen" class="celebration-screen">
+            <h1 class="celebration-text">¡FELIZ ANIVERSARIO!</h1>
+            <div class="celebration-content">
+                <div id="confettiContainer"></div>
+            </div>
+            <p class="final-note">al final sigues siendo tu</p>
+        </div> 
+        <!-- Pantalla de creditos -->
+        <div id="creditScreen" class="credit-screen">
+            <h1 class="celebration-text">CON AMOR TU NOVIO</h1>
+            <!-- Foto del novio -->
+            <img src="/api/placeholder/180/180" alt="Tu novio" class="boyfriend-photo" id="boyfriendPhoto">
+            <div class="celebration-content">
+                <div id="confettiContainer"></div>
+            </div>
+            <p class="final-note">Todos podemos mejorar</p>
+        </div> 
+          
+    </div>
+    <div class="celebration-box">
+        <!-- Personajes en círculo -->
+       <div class="circle-characters" id="circleCharacters">
+        <!-- Los personajes se generarán dinámicamente con JavaScript -->
+    </div>
+    
+    <script>
+        // Estado del diálogo
+        const dialogStates = [
+            {
+                text: "Me han dicho que alguien muy importante llegaria por aca...",
+                image: "/flowey4.png"
+            },
+            {
+                text: "Y es obvio de quien hablo.",
+                image: "/flowey5.png"
+            },
+            {
+                text: "¡¡¡DE MI!!!",
+                image: "/flowey2.png"
+            },
+            {
+                text: "Bueno, dejando el chiste, la persona que me lo dijo tenia mucho LV",
+                image: "/flowey6.png"
+            },
+            {
+                text: "Sabes a lo que me refiero, nivel de LoVe",
+                image: "/flowey3.png"
+            },
+            {
+                text: "Se que esas personas son fastidiosas, Pero no te preocupes",
+                image: "/flowey7.png"
+            },
+            {
+                text: "Algun dia desaparecera, porque si quiera lo querrias buscar",
+                image: "/flowey8.png"
+            }
+        ];
+        
+        // Estado del diálogo después del ataque
+        const attackDialogStates = [
+            {
+                text: "¡Auch! ¡Eso dolió!",
+                image: "/flowey8.png"
+            },
+            {
+                text: "¿Por qué me atacas? ¡Estaba siendo amable!",
+                image: "/flowey3.png"
+            },
+            {
+                text: "Espera... ¿hoy es un día especial, verdad?",
+                image: "/flowey4.png"
+            },
+            {
+                text: "Oh, ya entiendo. ¡Tu novio te ha preparado una sorpresa!",
+                image: "/flowey5.png"
+            },
+            {
+                text: "¡Hoy es vuestro aniversario! ¡Felicidades!",
+                image: "/flowey1.png"
+            },
+            {
+                text: "Él quería decirte algo especial...",
+                image: "/flowey6.png"
+            },
+            {
+                text: "Te ha preparado esto con mucho amor...",
+                image: "/flowey7.png"
+            }
+        ];
+        
+        let currentDialogIndex = 0;
+        let currentAttackDialogIndex = 0;
+        let NoLoop = false;
+        let inAttackDialogue = false;
+        
+        const scene1 = document.getElementById('scene1');
+        const dialogText = document.getElementById('dialogText');
+        const floweyImage = document.getElementById('floweyImage');
+        const nextButton = document.getElementById('nextButton');
+        const gameContainer = document.querySelector('.game-container');
+        const celebrationScreen = document.getElementById('celebrationScreen');
+        const creditScreen = document.getElementById('creditScreen');
+        const confettiContainer = document.getElementById('confettiContainer');
+        const circleCharacters = document.getElementById('circleCharacters');
+        
+        // Elementos de la pantalla de ataque
+        const attackScreen = document.getElementById('attackScreen');
+        const slashEffect = document.getElementById('slashEffect');
+        const floweyAttacked = document.getElementById('floweyAttacked');
+        const screenFlash = document.getElementById('screenFlash');
+        const attackDialogText = document.getElementById('attackDialogText');
+        const attackNextButton = document.getElementById('attackNextButton');
+        const boyfriendPhoto = document.getElementById('boyfriendPhoto');
+        
+        // Personajes para colocar en círculo
+        const characters = [
+            { name: "Sans", img: "/api/placeholder/80/80" },
+            { name: "Papyrus", img: "/api/placeholder/80/80" },
+            { name: "Toriel", img: "/api/placeholder/80/80" },
+            { name: "Undyne", img: "/api/placeholder/80/80" },
+            { name: "Alphys", img: "/api/placeholder/80/80" },
+            { name: "Asgore", img: "/api/placeholder/80/80" },
+            { name: "Mettaton", img: "/api/placeholder/80/80" },
+            { name: "Napstablook", img: "/api/placeholder/80/80" }
+        ];
+        
+        // Función para crear el círculo de personajes
+        function createCharacterCircle() {
+            circleCharacters.innerHTML = ''; // Limpiar personajes existentes
+            
+            // Aumentar el radio para alejar más los personajes del centro
+            const radius = Math.min(gameContainer.offsetWidth, gameContainer.offsetHeight) / 1.2; // Reducido de 2.5 a 1.8 para alejar
+            const centerX = gameContainer.offsetWidth / 2;
+            const centerY = gameContainer.offsetHeight / 2.5;
+            
+            characters.forEach((character, index) => {
+                const angle = (index / characters.length) * Math.PI * 2;
+                const x = centerX + radius * Math.cos(angle) - 40; // 40 es la mitad del ancho de la imagen
+                const y = centerY + radius * Math.sin(angle) - 40; // 40 es la mitad del alto de la imagen
+                
+                const charElement = document.createElement('img');
+                charElement.src = character.img;
+                charElement.alt = character.name;
+                charElement.className = 'circle-character';
+                charElement.style.left = x + 'px';
+                charElement.style.top = y + 'px';
+                charElement.style.animation = `float ${1 + Math.random()}s infinite alternate ease-in-out`;
+                charElement.style.animationDelay = `${Math.random() * 2}s`;
+                
+                circleCharacters.appendChild(charElement);
+            });
+        }
+        
+        // Función para mostrar la animación de ataque
+        function showAttackAnimation() {
+            scene1.style.opacity = 0;
+            setTimeout(() => {
+                attackScreen.classList.add('active');
+                inAttackDialogue = true;
+                
+                // Mostrar el efecto de corte después de un breve retraso
+                setTimeout(() => {
+                    slashEffect.classList.add('animate');
+                    screenFlash.classList.add('flash');
+                    floweyAttacked.classList.add('flowey-hurt');
+                    
+                    // Sonido de ataque (si tienes un elemento de audio)
+                    // const attackSound = document.getElementById('attackSound');
+                    // if (attackSound) attackSound.play();
+                }, 500);
+                
+            }, 300);
+        }
+        
+        // Función para actualizar el diálogo de ataque
+        function updateAttackDialog() {
+            if (currentAttackDialogIndex < attackDialogStates.length) {
+                const currentState = attackDialogStates[currentAttackDialogIndex];
+                attackDialogText.textContent = currentState.text;
+                floweyAttacked.src = currentState.image;
+                currentAttackDialogIndex++;
+            } else {
+                // Cuando terminan los diálogos de ataque, mostrar celebración
+                showCelebration();
+            }
+        }
+        
+        // Función para actualizar el diálogo
+        function updateDialog() {
+            if (inAttackDialogue) {
+                updateAttackDialog();
+                return;
+            }
+            
+            if (currentDialogIndex < dialogStates.length) {
+                const currentState = dialogStates[currentDialogIndex];
+                dialogText.textContent = currentState.text;
+                floweyImage.src = currentState.image;
+                currentDialogIndex++;
+            } else {
+                if(NoLoop){
+                    showCredits();
+                    return;
+                }
+                // Mostrar la animación de ataque
+                showAttackAnimation();
+                nextButton.style.display = 'none';
+                NoLoop = true;
+            }
+        }
+        
+        // Función para mostrar la pantalla de créditos
+        function showCredits() {
+            celebrationScreen.classList.remove('active');
+            creditScreen.classList.add('active');
+            
+            // Aquí podrías agregar más efectos para la pantalla de créditos si lo deseas
+            createConfetti();
+        }
+        
+        // Función para mostrar la pantalla de celebración
+        function showCelebration() {
+            attackScreen.classList.remove('active');
+            celebrationScreen.classList.add('active');
+            scene1.classList.add('opacity-0');
+            createCharacterCircle();
+            createConfetti();
+            
+            // Configurar un temporizador para mostrar la pantalla de créditos después de unos segundos
+            setTimeout(showCredits, 8000);
+        }
+        
+        // Crear confeti pixelado
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ffffff'];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * gameContainer.offsetWidth + 'px';
+                    // Iniciar desde más arriba (ya está posicionado con top: -100px en el CSS)
+                    confetti.style.top = (-Math.random() * 100) + 'px';
+                    confetti.style.width = Math.floor(Math.random() * 5) + 5 + 'px';
+                    confetti.style.height = Math.floor(Math.random() * 5) + 5 + 'px';
+                    // Caída más lenta
+                    confetti.style.animation = `fall ${Math.random() * 4 + 3}s linear forwards`;
+                    
+                    confettiContainer.appendChild(confetti);
+                    
+                    // Eliminar confeti después de la animación para evitar sobrecarga de memoria
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 7000); // Tiempo aumentado para compensar la animación más lenta
+                }, i * 50);
+            }
+            
+            // Continuar generando confeti
+            setTimeout(createConfetti, 5000);
+        }
+        
+        // Cargar fuente 8BitOperator usando WebFontLoader
+        window.WebFontConfig = {
+            google: {
+                families: ['Press Start 2P'] // Una alternativa gratuita similar a 8BitOperator
+            },
+            active: function() {
+                // La fuente se ha cargado
+                document.body.style.fontFamily = "'Press Start 2P', '8BitOperator', monospace";
+            }
+        };
+        
+        // Función para cargar la foto del novio (deberías reemplazar esta URL con la real)
+        function loadBoyfriendPhoto() {
+            // Aquí puedes cambiar la URL por la foto real del novio
+            boyfriendPhoto.src = "/api/placeholder/180/180";
+            // Ejemplo: boyfriendPhoto.src = "ruta/a/la/foto_del_novio.jpg";
+        }
+        
+        // Event listeners
+        nextButton.addEventListener('click', updateDialog);
+        
+        // Event listener para el botón en la pantalla de ataque
+        attackNextButton.addEventListener('click', updateAttackDialog);
+        
+        gameContainer.addEventListener('click', function(event) {
+            if(NoLoop && !inAttackDialogue){
+                return;
+            }
+            // Evitar que el clic en el botón active ambos eventos
+            if (event.target !== nextButton && event.target !== attackNextButton) {
+                if (inAttackDialogue) {
+                    updateAttackDialog();
+                } else {
+                    updateDialog();
+                }
+            }
+        });
+
+        // Permitir hacer clic en la pantalla de celebración
+        celebrationScreen.addEventListener('click', function(event) {
+            // Opcional: puedes agregar alguna interacción aquí si lo deseas
+        });
+        
+        // Permitir hacer clic en la pantalla de créditos
+        creditScreen.addEventListener('click', function(event) {
+            // Opcional: puedes agregar alguna interacción aquí si lo deseas
+        });
+
+        // Detectar si es dispositivo móvil para ajustes adicionales
+        function checkMobile() {
+            if (window.innerWidth <= 768) {
+                // Ajustes adicionales para móvil si son necesarios
+                createCharacterCircle(); // Actualizar la posición de los personajes en caso de cambio de tamaño
+            }
+        }
+
+        // Función para actualizar el tamaño y posición de los personajes según el tamaño de la pantalla
+        function updateCharacterPositions() {
+            if (celebrationScreen.classList.contains('active')) {
+                createCharacterCircle();
+            }
+        }
+
+        // Inicializar
+        window.addEventListener('load', function() {
+            checkMobile();
+            loadBoyfriendPhoto();
+            // Agregar script de WebFontLoader si no está ya incluido
+            if (typeof WebFontConfig === 'undefined') {
+                const wfScript = document.createElement('script');
+                wfScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/webfont/1.6.28/webfontloader.js';
+                document.head.appendChild(wfScript);
+            }
+        });
+
+        // Ejecutar al cambiar el tamaño de la ventana
+        window.addEventListener('resize', function() {
+            checkMobile();
+            updateCharacterPositions();
+        });
+    </script>
+</body>
+</html>
