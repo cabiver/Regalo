@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💖 Felicitaciones de Amor y Amistad 💖</title>
+    <title>💖 Detalle por mi 💖</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@400;700&display=swap');
         
@@ -14,14 +14,13 @@
         }
         
         body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden;
             position: relative;
         }
         
-        /* Corazones flotantes de fondo */
         .floating-hearts {
             position: fixed;
             top: 0;
@@ -59,15 +58,15 @@
         .main-title {
             font-family: 'Dancing Script', cursive;
             font-size: 4rem;
-            color: #e91e63;
-            text-shadow: 3px 3px 6px rgba(233, 30, 99, 0.3);
+            color: #ffffff;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
             margin-bottom: 20px;
             animation: titlePulse 2s ease-in-out infinite alternate;
         }
         
         .subtitle {
             font-size: 1.2rem;
-            color: #ad1457;
+            color: #f8f9fa;
             font-weight: 300;
         }
         
@@ -76,8 +75,8 @@
             border-radius: 25px;
             padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
-            border: 3px solid rgba(233, 30, 99, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border: 3px solid rgba(102, 126, 234, 0.3);
             transform: translateY(50px);
             opacity: 0;
             transition: all 0.8s ease;
@@ -101,8 +100,8 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            border: 5px solid #e91e63;
-            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+            border: 5px solid #667eea;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
             object-fit: cover;
             animation: characterBounce 3s ease-in-out infinite;
         }
@@ -110,18 +109,84 @@
         .character-info h2 {
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
-            color: #e91e63;
+            color: #667eea;
             margin-bottom: 10px;
         }
         
         .character-type {
-            background: linear-gradient(45deg, #e91e63, #f06292);
+            background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
             display: inline-block;
+        }
+        
+        /* Estilos específicos por personaje */
+        .asuka-theme {
+            border-color: #ff6b6b !important;
+        }
+        .asuka-theme .character-image {
+            border-color: #ff6b6b;
+        }
+        .asuka-theme .character-info h2 {
+            color: #ff4757;
+        }
+        .asuka-theme .character-type {
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+        }
+        
+        .megumin-theme {
+            border-color: #ff7675 !important;
+        }
+        .megumin-theme .character-image {
+            border-color: #ff7675;
+        }
+        .megumin-theme .character-info h2 {
+            color: #d63031;
+        }
+        .megumin-theme .character-type {
+            background: linear-gradient(45deg, #ff7675, #d63031);
+        }
+        
+        .len-theme {
+            border-color: #fdcb6e !important;
+        }
+        .len-theme .character-image {
+            border-color: #fdcb6e;
+        }
+        .len-theme .character-info h2 {
+            color: #e17055;
+        }
+        .len-theme .character-type {
+            background: linear-gradient(45deg, #fdcb6e, #e17055);
+        }
+        
+        .ludo-theme {
+            border-color: #74b9ff !important;
+        }
+        .ludo-theme .character-image {
+            border-color: #74b9ff;
+        }
+        .ludo-theme .character-info h2 {
+            color: #0984e3;
+        }
+        .ludo-theme .character-type {
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+        }
+        
+        .choso-theme {
+            border-color: #a29bfe !important;
+        }
+        .choso-theme .character-image {
+            border-color: #a29bfe;
+        }
+        .choso-theme .character-info h2 {
+            color: #6c5ce7;
+        }
+        .choso-theme .character-type {
+            background: linear-gradient(45deg, #a29bfe, #6c5ce7);
         }
         
         .message {
@@ -164,7 +229,7 @@
         }
         
         .next-button {
-            background: linear-gradient(45deg, #e91e63, #f06292);
+            background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -175,13 +240,12 @@
             transition: all 0.3s ease;
             margin: 20px auto;
             display: block;
-            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
         }
         
         .next-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 25px rgba(233, 30, 99, 0.4);
-            background: linear-gradient(45deg, #ad1457, #e91e63);
+            box-shadow: 0 12px 25px rgba(102, 126, 234, 0.4);
         }
         
         .final-message {
@@ -190,8 +254,9 @@
             padding: 40px;
             border-radius: 25px;
             margin-top: 30px;
-            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             display: none;
+            position: relative;
         }
         
         .final-message.visible {
@@ -202,8 +267,46 @@
         .final-message h3 {
             font-family: 'Dancing Script', cursive;
             font-size: 2.5rem;
-            color: #e91e63;
+            color: #667eea;
             margin-bottom: 20px;
+        }
+        
+        /* Controles de audio */
+        .audio-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 5px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .audio-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .audio-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .audio-button.playing {
+            background: linear-gradient(45deg, #00b894, #00a085);
         }
         
         .sparkles {
@@ -287,6 +390,14 @@
                 font-size: 1rem;
                 text-align: left;
             }
+            
+            .final-audio-controls {
+                position: relative;
+                top: auto;
+                right: auto;
+                margin-bottom: 20px;
+                display: inline-block;
+            }
         }
         
         @media (max-width: 480px) {
@@ -305,6 +416,11 @@
     </style>
 </head>
 <body>
+    <!-- Audio de fondo -->
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="https://cabiver.github.io/Regalo/NAMAE WO YOBU YO - Bungou Stray Dogs    Cover Español.mp3" type="audio/mp3">
+    </audio>
+    
     <!-- Corazones flotantes -->
     <div class="floating-hearts" id="floatingHearts"></div>
     
@@ -312,17 +428,25 @@
     <div class="sparkles" id="sparkles"></div>
     
     <div class="container">
-        <div class="header">
-            <h1 class="main-title">💖 Feliz Día del Amor y la Amistad 💖</h1>
-            <p class="subtitle">Mensajes especiales de tus personajes favoritos</p>
+        <!-- Control de audio -->
+        <div class="audio-controls">
+            <button id="audioToggle" class="audio-button">
+                <span id="audioIcon">🎵</span>
+                <span id="audioText">Pausar Música</span>
+            </button>
         </div>
         
+        <div class="header">
+            <h1 class="main-title">💖 Detalle por mi 💖</h1>
+            <p class="subtitle">Para Punky Plonk</p>
+        </div>
+         
         <!-- Sección 707 -->
         <div class="character-section" id="character-0">
             <div class="character-header">
-                <img src="https://i.pinimg.com/736x/cf/19/57/cf1957c1a4bb9f8d1f4e8f0df3c42bb4.jpg" alt="707" class="character-image">
+                <img src="https://cabiver.github.io/Regalo/mystic-messenger-707-photo (1).webp" alt="707" class="character-image">
                 <div class="character-info">
-                    <h2>707 (Saeyoung)</h2>
+                    <h2>707 (Literal mente yo)</h2>
                     <span class="character-type">Hacker Genial 💻</span>
                 </div>
             </div>
@@ -332,7 +456,7 @@
             <div class="memory-box">
                 <div class="memory-title">🌟 Recuerdo Especial con 707:</div>
                 <div class="memory-text">
-                    Recuerdo esa vez que nos quedamos despiertos toda la noche jugando y riéndonos de sus ocurrencias. Entre líneas de código y bromas sin sentido, construimos una amistad que vale más que cualquier sistema que haya logrado hackear. Sus mensajes siempre llegan en el momento perfecto, como si supiera exactamente cuándo necesito una sonrisa.
+                    recuerdo una vez que te mande la cancion de mystic messenger, te sorprendio que supiera del juego, y la verdad yo conozco muchas cosas en internet, aunque me sentia como 707 toda la vida, no sabia que te gustaba ese personaje, ya que es una red flag andante
                 </div>
             </div>
             <button class="next-button" onclick="showNext(1)">Siguiente personaje 💕</button>
@@ -341,113 +465,158 @@
         <!-- Sección Cinnamoroll -->
         <div class="character-section" id="character-1" style="display: none;">
             <div class="character-header">
-                <img src="https://i.pinimg.com/736x/82/b9/4f/82b94f4e8f5fc6d33f4e7f7b02c8ff79.jpg" alt="Cinnamoroll" class="character-image">
+                <img src="https://cabiver.github.io/Regalo/Cinamoroll.webp" alt="Cinnamoroll" class="character-image">
                 <div class="character-info">
                     <h2>Cinnamoroll</h2>
                     <span class="character-type">Cachorro Dulce ☁️</span>
                 </div>
             </div>
             <div class="message">
-                ¡Woof woof! 🐾 ¡Cinnamoroll aquí flotando desde las nubes para desearte el día más dulce! ☁️✨ Mis orejitas esponjosas me han dicho que hoy es un día especial para celebrar el amor y la amistad. Eres tan suave y dulce como los rollos de canela de Café Cinnamon, y tu corazón es tan grande como las nubes en las que me gusta volar. ¡Espero que tu día esté lleno de momentos tan tiernos como un abrazo de cachorro y tan dulces como la canela!
+                ¡Woof woof! 🐾 ¡Cinnamoroll aquí flotando desde las nubes para desearte el día más dulce! ☁️✨ Mis orejitas esponjosas me han dicho que hoy es un día especial para celebrar el amor y la amistad. ¡Espero que tu día esté lleno de momentos tan tiernos como un abrazo de cachorro y tan dulces como la canela!
             </div>
             <div class="memory-box">
                 <div class="memory-title">🌈 Recuerdo Especial con Cinnamoroll:</div>
                 <div class="memory-text">
-                    Recuerdo esa tarde lluviosa cuando me sentía triste y tú apareciste como Cinnamoroll bajando de las nubes, con esa sonrisa que puede iluminar cualquier día gris. Compartimos historias y risas mientras tomábamos algo caliente, y en ese momento supe que había encontrado a alguien con un corazón tan puro y dulce como este adorable cachorro.
+                    Cuando compramos el peluche de cinamorroll, fue divertido, creo que sali con marcas de besos ese dia, ademas creo que es de las pocas veces que me veias siendo como soy con gente que necesitaba ayuda, cuando le di mi juan baldes a un niño. 
+                    <br>
+                    Todavia me acuerdo que dices que tienes un cinamorroll de utero
                 </div>
             </div>
             <button class="next-button" onclick="showNext(2)">Siguiente personaje 💕</button>
         </div>
         
-        <!-- Sección Hello Kitty -->
+        <!-- Sección Asuka -->
         <div class="character-section" id="character-2" style="display: none;">
             <div class="character-header">
-                <img src="https://i.pinimg.com/736x/63/c8/53/63c853f4c5d2d6c9c2b7d0f4e8a5b1c2.jpg" alt="Hello Kitty" class="character-image">
+                <img src="https://cabiver.github.io/Regalo/Azuka.webp" alt="Asuka" class="character-image">
                 <div class="character-info">
-                    <h2>Hello Kitty</h2>
-                    <span class="character-type">Gatita Adorable 🎀</span>
+                    <h2>Asuka Langley</h2>
+                    <span class="character-type">Piloto de EVA 🤖</span>
                 </div>
             </div>
             <div class="message">
-                ¡Hello! 🎀 Soy Hello Kitty y estoy aquí para llenarte de amor y ternura en este día tan especial. Con mi lazo rosa y mi corazón lleno de cariño, quiero decirte que eres una persona maravillosa que merece toda la felicidad del mundo. Como una buena gatita, he estado observando todos tus momentos dulces y puedo decir que tienes un alma hermosa. ¡Que este día esté lleno de abrazos, sonrisas y toda la ternura que mereces!
+                ¡Hmph! 😤💢 ¡No creas que voy a decirte algo cursi solo porque es el día del amor y la amistad! Pero... *suspira* supongo que no eres tan patético como el resto. Eres una de las pocas personas que puede mantener el ritmo conmigo, y eso... eso no es algo que reconozca a la ligera. ¡Soy la piloto más genial del EVA-02, pero contigo a mi lado, incluso yo puedo admitir que las cosas son más interesantes! ¡Así que... feliz día o lo que sea! ¡Pero no se lo digas a nadie, ¿entendiste?! 🔥
             </div>
             <div class="memory-box">
-                <div class="memory-title">🎀 Recuerdo Especial con Hello Kitty:</div>
+                <div class="memory-title">🔥 Recuerdo Especial con Asuka:</div>
                 <div class="memory-text">
-                    Recuerdo cuando decoramos juntos cosas con stickers kawaii y nos reímos como niños. Tu capacidad de encontrar alegría en las pequeñas cosas me recordó por qué Hello Kitty representa la pureza y la dulzura. En cada detalle rosa y cada momento tierno, construimos recuerdos que atesoro como los mejores accesorios de mi colección.
+                    En nuestro juego fallido de adivinar cosas de la otra persona me acuerdo que dijste en ese momento que era el personaje que mas te representaba, me imagino que te sentias igual de sola que ella y que prefirio defenderce con esa actitud hostil para no mostral debilidad, sinceramente siento que te tal vez muchas personas se aprobecharon cuando todavia eras inocente
                 </div>
             </div>
             <button class="next-button" onclick="showNext(3)">Siguiente personaje 💕</button>
         </div>
-        
-        <!-- Sección My Melody -->
-        <div class="character-section" id="character-3" style="display: none;">
+
+        <!-- Sección Megumin -->
+        <div class="character-section megumin-theme" id="character-3" style="display: none;">
             <div class="character-header">
-                <img src="https://i.pinimg.com/736x/a1/2d/3e/a12d3e4f5g6h7i8j9k0l1m2n3o4p5q6r.jpg" alt="My Melody" class="character-image">
+                <img src="https://cabiver.github.io/Regalo/Megumin.webp" alt="Megumin" class="character-image">
                 <div class="character-info">
-                    <h2>My Melody</h2>
-                    <span class="character-type">Conejita Dulce 🌸</span>
+                    <h2>Megumin</h2>
+                    <span class="character-type">Archimaga de Explosión 💥</span>
                 </div>
             </div>
             <div class="message">
-                ¡Hola querido amigo! 🌸 Soy My Melody y he bajado desde el bosque de Mariland para desearte el día más hermoso. Con mi capuchita rosa y mi corazón lleno de amor, quiero recordarte lo especial que eres. Como las flores que crecen en mi jardín, tu amistad ha florecido de la manera más hermosa en mi corazón. Eres dulce como las galletitas que prepara mi mamá y tierno como los pétalos de las flores de cerezo. ¡Que tengas un día lleno de melodías dulces y momentos mágicos!
+                ¡Escucha bien! 💥✨ Yo soy Megumin, archimaga de la tribu Demonios carmeci, maestra de la magia de explosión, y hoy he venido a hacer explotar tu corazón... ¡pero de felicidad! Mi magia más poderosa no son mis explosiones épicas, sino la capacidad de crear momentos increíbles contigo. Eres como la perfecta combinación de ingredientes para el hechizo más espectacular: divertido, leal y con el corazón lo suficientemente grande como para soportar mis excentricidades. ¡EXPLOSION de amor y amistad para ti! 🎆💖
             </div>
             <div class="memory-box">
-                <div class="memory-title">🌸 Recuerdo Especial con My Melody:</div>
+                <div class="memory-title">💥 Recuerdo Especial con Megumin:</div>
                 <div class="memory-text">
-                    Recuerdo esa primavera cuando caminamos por el parque viendo las flores de cerezo caer como nieve rosa. Tu risa melodiosa se mezclaba con el viento y en ese momento pensé que My Melody habría estado orgullosa de presenciar un momento tan puro y hermoso. Cada pétalo que caía parecía llevarse nuestras preocupaciones y llenarnos de paz.
+                    El personaje que mas te gusto de una seria que tambien me gustaba, aunque dudo que la iniciaras por mi, solo se que la iniciaste porque podias verla en español en la cuenta de crunchyroll, siempre se me paso comprarte el gorro de la maga de los demonios carmeci.
                 </div>
             </div>
             <button class="next-button" onclick="showNext(4)">Siguiente personaje 💕</button>
         </div>
         
-        <!-- Sección Kuromi -->
-        <div class="character-section" id="character-4" style="display: none;">
+        <!-- Sección Kagamine Len -->
+        <div class="character-section len-theme" id="character-4" style="display: none;">
             <div class="character-header">
-                <img src="https://i.pinimg.com/736x/b2/3c/4d/b23c4d5e6f7g8h9i0j1k2l3m4n5o6p7q.jpg" alt="Kuromi" class="character-image">
+                <img src="https://cabiver.github.io/Regalo/KagamineLen.webp" alt="Kagamine Len" class="character-image">
                 <div class="character-info">
-                    <h2>Kuromi</h2>
-                    <span class="character-type">Conejita Rebelde 💀</span>
+                    <h2>Kagamine Len</h2>
+                    <span class="character-type">Vocaloid Dorado 🎵</span>
                 </div>
             </div>
             <div class="message">
-                ¡Nyaa! 💀🖤 Kuromi aquí, y aunque normalmente soy un poco traviesa, hoy quiero ser sincera contigo. Detrás de mi capucha con calavera y mi actitud rebelde, hay un corazón que valora mucho tu amistad. Eres de las pocas personas que pueden ver más allá de mi fachada ruda y encontrar mi lado dulce. Como una verdadera anti-heroína del amor, te digo que eres genial tal como eres. ¡No cambies nunca y que tengas un día tan épico como mis travesuras!
+                ♪ ¡Hola! 🎵💛 Soy Len, y hoy quiero cantarte la melodía más hermosa que tengo guardada en mi corazón. Como un Vocaloid, mi voz puede crear infinitas canciones, pero ninguna es tan especial como los momentos que compartimos juntos. Eres como la armonía perfecta en mi vida, alguien que hace que cada día suene mejor. Con mi cabello dorado brillando bajo las luces del escenario de la amistad, te dedico esta canción: eres increíble tal como eres, y espero que podamos seguir creando memorias musicales juntos. ¡Feliz día del amor y la amistad! 🎤✨
             </div>
             <div class="memory-box">
-                <div class="memory-title">💀 Recuerdo Especial con Kuromi:</div>
+                <div class="memory-title">🎵 Recuerdo Especial con Len:</div>
                 <div class="memory-text">
-                    Recuerdo cuando me defendiste de unos comentarios tontos y mostraste tu lado más protector. En ese momento vi en ti el espíritu rebelde pero noble de Kuromi, alguien que no tiene miedo de ir contra la corriente para defender lo que es correcto. Desde entonces supe que tenía a alguien genuinamente genial a mi lado.
+                    Nose cuantos hombres que les guste Vocaloid conozcas pero si me di cuenta que no sabia tanto de len como tu (aunque puede ser un video de curiosidades que viste justo antes), aunque len sea el vocaloid que mas me gusta porque teto no es un vocaloid, almenos si me acuerdo de ti cuando veo canciones de Len, espero te pase lo mismo cuando veas a la teto.
                 </div>
             </div>
-            <button class="next-button" onclick="showNext(5)">Ver mensaje final 💝</button>
+            <button class="next-button" onclick="showNext(5)">Siguiente personaje 💕</button>
+        </div>
+        
+        <!-- Sección Ludo -->
+        <div class="character-section ludo-theme" id="character-5" style="display: none;">
+            <div class="character-header">
+                <img src="https://cabiver.github.io/Regalo/ludo.webp" alt="Ludo" class="character-image">
+                <div class="character-info">
+                    <h2>Ludo</h2>
+                    <span class="character-type">Giver Valiente 🗑️</span>
+                </div>
+            </div>
+            <div class="message">
+                ¡Hey! 💙🔧 Soy Ludo, y aunque vivo en un mundo lleno de basura y caos, tú eres como encontrar un tesoro en medio de toda esa locura. En este lugar donde todo parece desechable, tu amistad es lo más valioso que he encontrado. Como un verdadero Giver, sé reconocer lo que realmente vale la pena, y tú definitivamente vales la pena. Tu fuerza para enfrentar los problemas y tu corazón noble me recuerdan por qué vale la pena luchar por las cosas buenas de la vida. ¡Sigamos siendo un equipo imparable! 🌟
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">🔧 Recuerdo Especial con Ludo:</div>
+                <div class="memory-text">
+                    Me acuerdo que en el panamericana estuvimos viendo tomos de anime, no sabia que te podria gustar, y supuse que verte gachiakuta que lo habia leido te iba a encantar, alguna vez ver gachiakuta me pone triste pero no debo dejar que me gane.
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(6)">Siguiente personaje 💕</button>
+        </div>
+        
+        <!-- Sección Choso -->
+        <div class="character-section choso-theme" id="character-6" style="display: none;">
+            <div class="character-header">
+                <img src="https://cabiver.github.io/Regalo/Choso.webp" alt="Choso" class="character-image">
+                <div class="character-info">
+                    <h2>Choso</h2>
+                    <span class="character-type">Hermano Mayor Protector 🩸</span>
+                </div>
+            </div>
+            <div class="message">
+                *Habla con voz serena pero cálida* 🩸💜 Soy Choso, y aunque mi naturaleza como maldición me hace ver el mundo de manera diferente, contigo he aprendido lo que significa tener a alguien especial en tu vida. Como hermano mayor, mi instinto es proteger a quienes amo, y tú has despertado ese mismo sentimiento en mí. Tu presencia trae paz a mi mente, que suele estar llena de preocupaciones. Eres alguien en quien puedo confiar completamente, y eso... eso es muy raro para mí. Gracias por mostrarme que la verdadera fuerza no solo está en el poder, sino en los lazos que creamos. 🌙
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">🌙 Recuerdo Especial con Choso:</div>
+                <div class="memory-text">
+                    Como olvidar mi primer individuo por el que senti celos, jaajajajaa, la verdad nose que pensaba, tal vez era muy inocente o era muy nuevo en esto de ser novios, pero a mi no se me pasaba por la mente presumir otra cosa que no fueras tu en ese momento.    
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(7)">Ver mensaje final 💝</button>
         </div>
         
         <!-- Mensaje Final -->
         <div class="final-message" id="finalMessage">
-            <h3>💖 Con Todo Mi Amor 💖</h3>
+            <h3>💖 Unidos por la Amistad 💖</h3>
             <p style="font-size: 1.2rem; line-height: 1.8; color: #424242;">
-                Cada uno de estos personajes representa una parte especial de lo que significa tenerte en mi vida. Como 707, traes alegría y diversión; como Cinnamoroll, eres suave y reconfortante; como Hello Kitty, irradias ternura; como My Melody, traes paz y armonía; y como Kuromi, tienes esa autenticidad rebelde que tanto admiro.
+                Cada uno de estos personajes representa una faceta conoci o que me acuerde de ti. Me acordaste que me representaba con 707, Tienes la dulcura y ternura que muestra Cinamoroll, Tienes la fiereza y mal humor de Asuka, la pasión de Megumin, la armonía de Len, la valentía y frustracion de Ludo, Choso no entra, odio a ese man. 
                 <br><br>
-                En este Día del Amor y la Amistad, quiero que sepas que eres una de las personas más valiosas en mi vida. Gracias por todos los recuerdos hermosos que hemos creado juntos y por los muchos más que están por venir.
+                En este día del amor y la amistad, quiero que sepas que eres una persona extraordinaria que ha tocado mi vida de maneras que ni siquiera imaginas. Como estos personajes únicos e inolvidables, me recuerda a tu precencia.
                 <br><br>
-                <strong style="color: #e91e63; font-family: 'Dancing Script', cursive; font-size: 1.5rem;">
-                    ¡Te quiero mucho! 💕✨
+                <strong style="color: #667eea; font-family: 'Dancing Script', cursive; font-size: 1.5rem;">
+                    ¡Gracias por ser tan increíble, no dejes que nadie dañe lo que eres! 💕✨
                 </strong>
             </p>
             <div style="margin-top: 30px;">
-                <a href="index.html" style="background: linear-gradient(45deg, #e91e63, #f06292); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: 600;">← Volver al Menú Principal</a>
+                <a href="index.html" style="background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: 600;">← Volver al Menú Principal</a>
             </div>
         </div>
     </div>
     
     <script>
         let currentCharacter = 0;
+        let finalAudioInitialized = false;
         
         function showNext(nextIndex) {
             // Ocultar el personaje actual
             document.getElementById(`character-${currentCharacter}`).style.display = 'none';
             
-            if (nextIndex < 5) {
+            if (nextIndex < 7) {
                 // Mostrar el siguiente personaje
                 const nextCharacter = document.getElementById(`character-${nextIndex}`);
                 nextCharacter.style.display = 'block';
@@ -530,7 +699,66 @@
             
             // Animación inicial de sparkles
             setTimeout(() => createSparkles(10), 1000);
+            
+            // Inicializar controles de audio
+            initAudioControls();
         });
+        
+        // Funciones de audio
+        function initAudioControls() {
+            const audioToggle = document.getElementById('audioToggle');
+            const audioIcon = document.getElementById('audioIcon');
+            const audioText = document.getElementById('audioText');
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            
+            let isPlaying = true; // Empieza reproduciendo
+            
+            // Configurar música inicial
+            backgroundMusic.volume = 0.3; // Volumen inicial
+            
+            // Intentar reproducir automáticamente
+            backgroundMusic.play().then(() => {
+                console.log('Música iniciada automáticamente');
+                audioToggle.classList.add('playing');
+            }).catch(error => {
+                console.log('Reproducción automática bloqueada:', error);
+                // Si está bloqueada, cambiar el estado visual
+                audioIcon.textContent = '🔇';
+                audioText.textContent = 'Activar Música';
+                audioToggle.classList.remove('playing');
+                isPlaying = false;
+            });
+            
+            audioToggle.addEventListener('click', function() {
+                if (isPlaying) {
+                    backgroundMusic.pause();
+                    audioIcon.textContent = '🔇';
+                    audioText.textContent = 'Activar Música';
+                    audioToggle.classList.remove('playing');
+                    isPlaying = false;
+                } else {
+                    backgroundMusic.play().then(() => {
+                        audioIcon.textContent = '🎵';
+                        audioText.textContent = 'Pausar Música';
+                        audioToggle.classList.add('playing');
+                        isPlaying = true;
+                    }).catch(error => {
+                        console.log('Error al reproducir audio:', error);
+                        alert('No se pudo cargar la música. Verifica que el archivo esté disponible.');
+                    });
+                }
+            });
+            
+            // Reiniciar cuando termine (por si no es loop)
+            backgroundMusic.addEventListener('ended', function() {
+                if (backgroundMusic.loop) return; // Si está en loop, no hacer nada
+                
+                audioIcon.textContent = '🔇';
+                audioText.textContent = 'Activar Música';
+                audioToggle.classList.remove('playing');
+                isPlaying = false;
+            });
+        }
         
         // Efecto de scroll para revelar elementos
         window.addEventListener('scroll', () => {
