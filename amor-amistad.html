@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 Felicitaciones de Amor y Amistad 💖</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Corazones flotantes de fondo */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 182, 193, 0.7);
+            animation: float-heart 6s infinite linear;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #e91e63;
+            text-shadow: 3px 3px 6px rgba(233, 30, 99, 0.3);
+            margin-bottom: 20px;
+            animation: titlePulse 2s ease-in-out infinite alternate;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ad1457;
+            font-weight: 300;
+        }
+        
+        .character-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+            border: 3px solid rgba(233, 30, 99, 0.2);
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .character-section.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .character-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .character-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #e91e63;
+            box-shadow: 0 10px 25px rgba(233, 30, 99, 0.3);
+            object-fit: cover;
+            animation: characterBounce 3s ease-in-out infinite;
+        }
+        
+        .character-info h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e91e63;
+            margin-bottom: 10px;
+        }
+        
+        .character-type {
+            background: linear-gradient(45deg, #e91e63, #f06292);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #424242;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .memory-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #e17055;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .memory-box::before {
+            content: "💭";
+            font-size: 2rem;
+            position: absolute;
+            top: -5px;
+            right: 15px;
+            opacity: 0.5;
+        }
+        
+        .memory-title {
+            font-weight: 600;
+            color: #d63031;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .memory-text {
+            color: #2d3436;
+            font-style: italic;
+        }
+        
+        .next-button {
+            background: linear-gradient(45deg, #e91e63, #f06292);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.3);
+        }
+        
+        .next-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(233, 30, 99, 0.4);
+            background: linear-gradient(45deg, #ad1457, #e91e63);
+        }
+        
+        .final-message {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            margin-top: 30px;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+            display: none;
+        }
+        
+        .final-message.visible {
+            display: block;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .final-message h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #e91e63;
+            margin-bottom: 20px;
+        }
+        
+        .sparkles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .sparkle {
+            position: absolute;
+            color: #ffd700;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes float-heart {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes titlePulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        
+        @keyframes characterBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .character-section {
+                padding: 25px;
+            }
+            
+            .character-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .character-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .character-info h2 {
+                font-size: 2rem;
+            }
+            
+            .message {
+                font-size: 1rem;
+                text-align: left;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .character-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Corazones flotantes -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <!-- Sparkles -->
+    <div class="sparkles" id="sparkles"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1 class="main-title">💖 Feliz Día del Amor y la Amistad 💖</h1>
+            <p class="subtitle">Mensajes especiales de tus personajes favoritos</p>
+        </div>
+        
+        <!-- Sección 707 -->
+        <div class="character-section" id="character-0">
+            <div class="character-header">
+                <img src="https://i.pinimg.com/736x/cf/19/57/cf1957c1a4bb9f8d1f4e8f0df3c42bb4.jpg" alt="707" class="character-image">
+                <div class="character-info">
+                    <h2>707 (Saeyoung)</h2>
+                    <span class="character-type">Hacker Genial 💻</span>
+                </div>
+            </div>
+            <div class="message">
+                ¡Hey hey! 707 aquí con un mensaje súper especial! 🚗✨ Sabes que normalmente paso mi tiempo hackeando sistemas y comiendo chips de miel, pero hoy quiero hackear directamente tu corazón con palabras llenas de amor. Eres alguien increíblemente especial, y aunque a veces me escondo detrás de mis bromas y mi personalidad loca, quiero que sepas que tu amistad significa el mundo para mí. ¡Que tengas un día lleno de Honey Buddha Chips y momentos dulces!
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">🌟 Recuerdo Especial con 707:</div>
+                <div class="memory-text">
+                    Recuerdo esa vez que nos quedamos despiertos toda la noche jugando y riéndonos de sus ocurrencias. Entre líneas de código y bromas sin sentido, construimos una amistad que vale más que cualquier sistema que haya logrado hackear. Sus mensajes siempre llegan en el momento perfecto, como si supiera exactamente cuándo necesito una sonrisa.
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(1)">Siguiente personaje 💕</button>
+        </div>
+        
+        <!-- Sección Cinnamoroll -->
+        <div class="character-section" id="character-1" style="display: none;">
+            <div class="character-header">
+                <img src="https://i.pinimg.com/736x/82/b9/4f/82b94f4e8f5fc6d33f4e7f7b02c8ff79.jpg" alt="Cinnamoroll" class="character-image">
+                <div class="character-info">
+                    <h2>Cinnamoroll</h2>
+                    <span class="character-type">Cachorro Dulce ☁️</span>
+                </div>
+            </div>
+            <div class="message">
+                ¡Woof woof! 🐾 ¡Cinnamoroll aquí flotando desde las nubes para desearte el día más dulce! ☁️✨ Mis orejitas esponjosas me han dicho que hoy es un día especial para celebrar el amor y la amistad. Eres tan suave y dulce como los rollos de canela de Café Cinnamon, y tu corazón es tan grande como las nubes en las que me gusta volar. ¡Espero que tu día esté lleno de momentos tan tiernos como un abrazo de cachorro y tan dulces como la canela!
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">🌈 Recuerdo Especial con Cinnamoroll:</div>
+                <div class="memory-text">
+                    Recuerdo esa tarde lluviosa cuando me sentía triste y tú apareciste como Cinnamoroll bajando de las nubes, con esa sonrisa que puede iluminar cualquier día gris. Compartimos historias y risas mientras tomábamos algo caliente, y en ese momento supe que había encontrado a alguien con un corazón tan puro y dulce como este adorable cachorro.
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(2)">Siguiente personaje 💕</button>
+        </div>
+        
+        <!-- Sección Hello Kitty -->
+        <div class="character-section" id="character-2" style="display: none;">
+            <div class="character-header">
+                <img src="https://i.pinimg.com/736x/63/c8/53/63c853f4c5d2d6c9c2b7d0f4e8a5b1c2.jpg" alt="Hello Kitty" class="character-image">
+                <div class="character-info">
+                    <h2>Hello Kitty</h2>
+                    <span class="character-type">Gatita Adorable 🎀</span>
+                </div>
+            </div>
+            <div class="message">
+                ¡Hello! 🎀 Soy Hello Kitty y estoy aquí para llenarte de amor y ternura en este día tan especial. Con mi lazo rosa y mi corazón lleno de cariño, quiero decirte que eres una persona maravillosa que merece toda la felicidad del mundo. Como una buena gatita, he estado observando todos tus momentos dulces y puedo decir que tienes un alma hermosa. ¡Que este día esté lleno de abrazos, sonrisas y toda la ternura que mereces!
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">🎀 Recuerdo Especial con Hello Kitty:</div>
+                <div class="memory-text">
+                    Recuerdo cuando decoramos juntos cosas con stickers kawaii y nos reímos como niños. Tu capacidad de encontrar alegría en las pequeñas cosas me recordó por qué Hello Kitty representa la pureza y la dulzura. En cada detalle rosa y cada momento tierno, construimos recuerdos que atesoro como los mejores accesorios de mi colección.
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(3)">Siguiente personaje 💕</button>
+        </div>
+        
+        <!-- Sección My Melody -->
+        <div class="character-section" id="character-3" style="display: none;">
+            <div class="character-header">
+                <img src="https://i.pinimg.com/736x/a1/2d/3e/a12d3e4f5g6h7i8j9k0l1m2n3o4p5q6r.jpg" alt="My Melody" class="character-image">
+                <div class="character-info">
+                    <h2>My Melody</h2>
+                    <span class="character-type">Conejita Dulce 🌸</span>
+                </div>
+            </div>
+            <div class="message">
+                ¡Hola querido amigo! 🌸 Soy My Melody y he bajado desde el bosque de Mariland para desearte el día más hermoso. Con mi capuchita rosa y mi corazón lleno de amor, quiero recordarte lo especial que eres. Como las flores que crecen en mi jardín, tu amistad ha florecido de la manera más hermosa en mi corazón. Eres dulce como las galletitas que prepara mi mamá y tierno como los pétalos de las flores de cerezo. ¡Que tengas un día lleno de melodías dulces y momentos mágicos!
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">🌸 Recuerdo Especial con My Melody:</div>
+                <div class="memory-text">
+                    Recuerdo esa primavera cuando caminamos por el parque viendo las flores de cerezo caer como nieve rosa. Tu risa melodiosa se mezclaba con el viento y en ese momento pensé que My Melody habría estado orgullosa de presenciar un momento tan puro y hermoso. Cada pétalo que caía parecía llevarse nuestras preocupaciones y llenarnos de paz.
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(4)">Siguiente personaje 💕</button>
+        </div>
+        
+        <!-- Sección Kuromi -->
+        <div class="character-section" id="character-4" style="display: none;">
+            <div class="character-header">
+                <img src="https://i.pinimg.com/736x/b2/3c/4d/b23c4d5e6f7g8h9i0j1k2l3m4n5o6p7q.jpg" alt="Kuromi" class="character-image">
+                <div class="character-info">
+                    <h2>Kuromi</h2>
+                    <span class="character-type">Conejita Rebelde 💀</span>
+                </div>
+            </div>
+            <div class="message">
+                ¡Nyaa! 💀🖤 Kuromi aquí, y aunque normalmente soy un poco traviesa, hoy quiero ser sincera contigo. Detrás de mi capucha con calavera y mi actitud rebelde, hay un corazón que valora mucho tu amistad. Eres de las pocas personas que pueden ver más allá de mi fachada ruda y encontrar mi lado dulce. Como una verdadera anti-heroína del amor, te digo que eres genial tal como eres. ¡No cambies nunca y que tengas un día tan épico como mis travesuras!
+            </div>
+            <div class="memory-box">
+                <div class="memory-title">💀 Recuerdo Especial con Kuromi:</div>
+                <div class="memory-text">
+                    Recuerdo cuando me defendiste de unos comentarios tontos y mostraste tu lado más protector. En ese momento vi en ti el espíritu rebelde pero noble de Kuromi, alguien que no tiene miedo de ir contra la corriente para defender lo que es correcto. Desde entonces supe que tenía a alguien genuinamente genial a mi lado.
+                </div>
+            </div>
+            <button class="next-button" onclick="showNext(5)">Ver mensaje final 💝</button>
+        </div>
+        
+        <!-- Mensaje Final -->
+        <div class="final-message" id="finalMessage">
+            <h3>💖 Con Todo Mi Amor 💖</h3>
+            <p style="font-size: 1.2rem; line-height: 1.8; color: #424242;">
+                Cada uno de estos personajes representa una parte especial de lo que significa tenerte en mi vida. Como 707, traes alegría y diversión; como Cinnamoroll, eres suave y reconfortante; como Hello Kitty, irradias ternura; como My Melody, traes paz y armonía; y como Kuromi, tienes esa autenticidad rebelde que tanto admiro.
+                <br><br>
+                En este Día del Amor y la Amistad, quiero que sepas que eres una de las personas más valiosas en mi vida. Gracias por todos los recuerdos hermosos que hemos creado juntos y por los muchos más que están por venir.
+                <br><br>
+                <strong style="color: #e91e63; font-family: 'Dancing Script', cursive; font-size: 1.5rem;">
+                    ¡Te quiero mucho! 💕✨
+                </strong>
+            </p>
+            <div style="margin-top: 30px;">
+                <a href="index.html" style="background: linear-gradient(45deg, #e91e63, #f06292); color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: 600;">← Volver al Menú Principal</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentCharacter = 0;
+        
+        function showNext(nextIndex) {
+            // Ocultar el personaje actual
+            document.getElementById(`character-${currentCharacter}`).style.display = 'none';
+            
+            if (nextIndex < 5) {
+                // Mostrar el siguiente personaje
+                const nextCharacter = document.getElementById(`character-${nextIndex}`);
+                nextCharacter.style.display = 'block';
+                
+                // Animación de entrada
+                setTimeout(() => {
+                    nextCharacter.classList.add('visible');
+                }, 100);
+                
+                currentCharacter = nextIndex;
+            } else {
+                // Mostrar mensaje final
+                const finalMessage = document.getElementById('finalMessage');
+                finalMessage.style.display = 'block';
+                setTimeout(() => {
+                    finalMessage.classList.add('visible');
+                }, 100);
+                
+                // Crear más sparkles para el final
+                createSparkles(20);
+            }
+            
+            // Scroll suave hacia arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const hearts = ['💖', '💕', '💝', '💗', '💓', '💘', '❤️', '🧡', '💛', '💚', '💙', '💜'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                
+                heartsContainer.appendChild(heart);
+                
+                // Remover después de la animación
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 800);
+        }
+        
+        function createSparkles(count = 5) {
+            const sparklesContainer = document.getElementById('sparkles');
+            
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.textContent = '✨';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    sparkle.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    sparklesContainer.appendChild(sparkle);
+                    
+                    // Remover después de 4 segundos
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 4000);
+                }, i * 200);
+            }
+        }
+        
+        // Inicializar efectos
+        window.addEventListener('load', () => {
+            // Mostrar el primer personaje
+            document.getElementById('character-0').classList.add('visible');
+            
+            // Iniciar corazones flotantes
+            createFloatingHearts();
+            
+            // Crear sparkles periódicamente
+            setInterval(() => createSparkles(), 3000);
+            
+            // Animación inicial de sparkles
+            setTimeout(() => createSparkles(10), 1000);
+        });
+        
+        // Efecto de scroll para revelar elementos
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.character-section');
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const windowHeight = window.innerHeight;
+                const scrollPosition = window.pageYOffset;
+                
+                if (scrollPosition > (sectionTop - windowHeight + sectionHeight / 3)) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
