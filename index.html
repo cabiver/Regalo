@@ -1,246 +1,338 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selecciona tu Aventura</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-        
-        body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Press Start 2P', monospace;
-            color: white;
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-        }
-        
-        .container {
-            text-align: center;
-            padding: 40px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 4px solid #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-            max-width: 600px;
-            width: 90%;
-        }
-        
-        .title {
-            font-size: 32px;
-            margin-bottom: 30px;
-            color: #ffd700;
-            text-shadow: 3px 3px 0 #ff6b6b;
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
-        
-        .subtitle {
-            font-size: 16px;
-            margin-bottom: 40px;
-            color: #cccccc;
-            line-height: 1.8;
-        }
-        
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            margin-top: 30px;
-        }
-        
-        .option-button {
-            padding: 20px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: 3px solid #ffffff;
-            border-radius: 10px;
-            color: white;
-            text-decoration: none;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        
-        .option-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        }
-        
-        .option-button:active {
-            transform: translateY(0);
-        }
-        
-        .option-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .option-button:hover::before {
-            left: 100%;
-        }
-        
-        .flowey-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            display: block;
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        .description {
-            font-size: 12px;
-            color: #aaaaaa;
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-        
-        .coming-soon {
-            opacity: 0.6;
-            background: linear-gradient(135deg, #666666 0%, #333333 100%);
-            cursor: not-allowed;
-            position: relative;
-        }
-        
-        .coming-soon::after {
-            content: "PRÓXIMAMENTE";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #ff4757;
-            color: white;
-            padding: 5px 10px;
-            font-size: 8px;
-            border-radius: 3px;
-        }
-        
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        @keyframes titleGlow {
-            0% { text-shadow: 3px 3px 0 #ff6b6b, 0 0 20px #ffd700; }
-            100% { text-shadow: 3px 3px 0 #ff6b6b, 0 0 30px #ffd700, 0 0 40px #ffd700; }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @media (max-width: 768px) {
-            .title {
-                font-size: 24px;
-            }
-            
-            .subtitle {
-                font-size: 14px;
-            }
-            
-            .option-button {
-                font-size: 12px;
-                padding: 15px 20px;
-            }
-            
-            .container {
-                padding: 30px 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .title {
-                font-size: 18px;
-            }
-            
-            .subtitle {
-                font-size: 12px;
-            }
-            
-            .option-button {
-                font-size: 10px;
-                padding: 12px 16px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Molly ✦</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Dancing+Script:wght@400;700&family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep:#0d0020;--purple:#7b2fff;--purple-l:#bf80ff;--purple-p:#e8ccff;
+    --gold:#ffd84f;--red-c:#cc1111;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg-deep);min-height:100vh;overflow-x:hidden;font-family:'Crimson Text',serif}
+  canvas.bg{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+  .page{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:36px 16px 60px}
+
+  /* HEADER */
+  .header{text-align:center;margin-bottom:20px;animation:fadeD 1.4s ease forwards}
+  .header h1{font-family:'Cinzel',serif;font-size:clamp(1.7rem,5vw,2.8rem);color:var(--purple-l);letter-spacing:.14em;text-shadow:0 0 28px rgba(123,47,255,.9),0 0 56px rgba(123,47,255,.4);margin-bottom:6px}
+  .header p{font-family:'Dancing Script',cursive;font-size:clamp(.95rem,2.8vw,1.4rem);color:var(--gold);text-shadow:0 0 18px rgba(255,216,79,.6)}
+
+  /* DEDICATION */
+  .dedication-fixed{
+    font-family:'Dancing Script',cursive;font-size:clamp(1.3rem,3.5vw,1.8rem);
+    color:var(--purple-p);text-align:center;margin-bottom:22px;
+    text-shadow:0 0 22px rgba(191,128,255,.75);
+    animation:fadeD 1.4s ease .2s both;
+  }
+
+  /* STAGE */
+  .stage{position:relative;width:min(700px,96vw);height:480px;margin:0 auto}
+  #pcan{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+  .glow-ov{position:absolute;inset:0;border-radius:20px;pointer-events:none;opacity:0;transition:opacity 1.4s;background:radial-gradient(ellipse at 50% 60%,rgba(123,47,255,.3) 0%,transparent 68%)}
+  .ground{position:absolute;bottom:0;left:0;right:0;height:56px;background:linear-gradient(to top,rgba(40,0,80,.95),transparent);border-radius:0 0 18px 18px}
+
+  /* FLOWERS */
+  .flowers-wrap{position:absolute;bottom:52px;left:50%;transform:translateX(-50%);display:flex;align-items:flex-end;gap:8px}
+
+  /* CHILDREN ROW - PNG images */
+  .children-row{
+    position:absolute;bottom:52px;left:50%;transform:translateX(-50%);
+    display:flex;gap:32px;align-items:flex-end;
+    opacity:0;transition:opacity 1s;
+    pointer-events:none;
+  }
+
+  .child-slot{
+    display:flex;flex-direction:column;align-items:center;
+    position:relative;
+  }
+
+  /* The actual image displayed in the scene */
+  .child-img{
+    width:90px;height:115px;
+    object-fit:contain;object-position:bottom;
+    display:block;
+    filter:drop-shadow(0 4px 12px rgba(200,0,50,.6));
+    border-radius:6px;
+  }
+
+  /* Red candle drawn on top via ::after pseudo or separate element */
+  .candle-wrap{
+    position:absolute;
+    right:-10px;top:10px;
+    width:22px;
+  }
+  .candle-wrap svg{display:block}
+
+  /* UPLOAD PANEL */
+  .upload-panel{
+    display:flex;gap:14px;flex-wrap:wrap;justify-content:center;
+    margin-bottom:28px;
+    opacity:0;animation:fadeD 1.4s ease .5s forwards;
+  }
+  .upload-slot{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+  }
+  .upload-slot label{
+    font-family:'Cinzel',serif;font-size:.7rem;color:var(--purple-l);
+    letter-spacing:.08em;text-transform:uppercase;
+  }
+  .upload-btn{
+    background:rgba(123,47,255,.18);
+    border:1.5px dashed rgba(191,128,255,.5);
+    border-radius:14px;
+    width:80px;height:80px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    cursor:pointer;transition:all .3s;overflow:hidden;position:relative;
+  }
+  .upload-btn:hover{border-color:var(--purple-l);background:rgba(123,47,255,.3)}
+  .upload-btn .icon{font-size:1.6rem;color:rgba(191,128,255,.6);line-height:1}
+  .upload-btn .hint{font-size:.6rem;color:rgba(191,128,255,.5);margin-top:3px;font-family:'Cinzel',serif;letter-spacing:.04em}
+  .upload-btn input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .upload-preview{
+    width:100%;height:100%;
+    object-fit:cover;object-position:center;
+    border-radius:12px;
+    display:none;
+  }
+
+  /* CONTROLS */
+  .controls{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeD 1.4s ease .8s forwards}
+  .btn-magic{background:linear-gradient(135deg,#220044,var(--purple));border:1.5px solid var(--purple-l);border-radius:40px;padding:13px 34px;font-family:'Cinzel',serif;font-size:.95rem;color:var(--purple-p);cursor:pointer;letter-spacing:.1em;box-shadow:0 0 20px rgba(123,47,255,.45);transition:all .3s}
+  .btn-magic:hover{box-shadow:0 0 38px rgba(123,47,255,.9);transform:scale(1.05);color:#fff}
+  .btn-magic:disabled{opacity:.38;cursor:not-allowed;transform:none}
+  .btn-reset{background:transparent;border:1.5px solid rgba(191,128,255,.38);border-radius:40px;padding:13px 26px;font-family:'Cinzel',serif;font-size:.8rem;color:var(--purple-l);cursor:pointer;letter-spacing:.07em;transition:all .3s}
+  .btn-reset:hover{border-color:var(--purple-l);background:rgba(123,47,255,.18)}
+
+  #status-msg{font-family:'Dancing Script',cursive;font-size:1.15rem;color:var(--gold);text-align:center;margin-top:14px;min-height:2rem;text-shadow:0 0 14px rgba(255,216,79,.5);transition:opacity .4s}
+
+  .burst{position:absolute;pointer-events:none;font-size:20px;animation:burstFly 1.3s ease-out forwards}
+  @keyframes burstFly{0%{opacity:1;transform:scale(1) translate(0,0)}100%{opacity:0;transform:scale(0) translate(var(--dx),var(--dy))}}
+  @keyframes fadeD{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:translateY(0)}}
+
+  .footer-note{margin-top:38px;font-family:'Dancing Script',cursive;font-size:.95rem;color:rgba(191,128,255,.4);text-align:center;opacity:0;animation:fadeD 2s ease 1.6s forwards}
+</style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://cabiver.github.io/Regalo/flowey1.png" alt="Flowey" class="flowey-icon">
-        
-        <h1 class="title">¡BIENVENIDO!</h1>
-        <p class="subtitle">
-            Que quieres ver?<br>
-            Cada historia es única y especial
-        </p>
-        
-        <div class="options">
-            <a href="undertale-flowey.html" class="option-button">
-                💖 Aniversario
-                <div class="description">
-                    Una aventura romántica con Flowey<br>
-                    Perfecta para celebrar momentos especiales
-                </div>
-            </a>
-            
-            <a href="amor-amistad.html" class="option-button">
-                🌻 AMOR Y AMISTAD
-                <div class="description">
-                    Mensajes especiales de personajes kawaii<br>
-                    de recuerdos!
-                </div>
-            </a>
-            
-            <a href="#" class="option-button coming-soon">
-                💀 navidad
-                <div class="description">
-                    que sera???<br>
-                    Coming soon...
-                </div>
-            </a>
+
+<canvas class="bg" id="starsC"></canvas>
+
+<div class="page">
+
+  <div class="header">
+    <h1>✦ Flores Mágicas ✦</h1>
+    <p>Un regalo encantado</p>
+  </div>
+
+  <div class="dedication-fixed">— Para Molly, con todo el amor del mundo —</div>
+
+ 
+
+  <div class="stage" id="stage">
+    <canvas id="pcan"></canvas>
+    <div class="glow-ov" id="glowOv"></div>
+    <div class="flowers-wrap" id="flowersWrap"></div>
+
+    <!-- CHILDREN ROW with PNG images + candles -->
+    <div class="children-row" id="childrenRow">
+      <div class="child-slot">
+        <img class="child-img" id="sceneImg0" src="" alt="" style="display:none"/>
+        <div class="child-placeholder" id="ph0"></div>
+        <div class="candle-wrap">
+          <svg width="22" height="52" viewBox="0 0 22 52">
+            <!-- candle body -->
+            <rect x="6" y="26" width="10" height="24" rx="3" fill="#cc1111"/>
+            <rect x="7" y="27" width="4" height="22" rx="2" fill="rgba(255,80,80,0.32)"/>
+            <!-- wax top -->
+            <ellipse cx="11" cy="26" rx="5" ry="3" fill="#dd2222"/>
+            <!-- wick -->
+            <line x1="11" y1="26" x2="11" y2="19" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- flame outer -->
+            <ellipse cx="11" cy="13" rx="5" ry="8" fill="#ff3333" opacity=".95" class="fl-el"/>
+            <!-- flame mid -->
+            <ellipse cx="11" cy="14" rx="2.8" ry="5" fill="#ff9900"/>
+            <!-- flame tip -->
+            <circle cx="11" cy="8" r="2.2" fill="#fff8aa" opacity=".85"/>
+          </svg>
         </div>
+      </div>
+
+      <div class="child-slot">
+        <img class="child-img" id="sceneImg1" src="" alt="" style="display:none"/>
+        <div class="child-placeholder" id="ph1"></div>
+        <div class="candle-wrap">
+          <svg width="22" height="52" viewBox="0 0 22 52">
+            <rect x="6" y="26" width="10" height="24" rx="3" fill="#cc1111"/>
+            <rect x="7" y="27" width="4" height="22" rx="2" fill="rgba(255,80,80,0.32)"/>
+            <ellipse cx="11" cy="26" rx="5" ry="3" fill="#dd2222"/>
+            <line x1="11" y1="26" x2="11" y2="19" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+            <ellipse cx="11" cy="13" rx="5" ry="8" fill="#ff3333" opacity=".95" class="fl-el"/>
+            <ellipse cx="11" cy="14" rx="2.8" ry="5" fill="#ff9900"/>
+            <circle cx="11" cy="8" r="2.2" fill="#fff8aa" opacity=".85"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="child-slot">
+        <img class="child-img" id="sceneImg2" src="" alt="" style="display:none"/>
+        <div class="child-placeholder" id="ph2"></div>
+        <div class="candle-wrap">
+          <svg width="22" height="52" viewBox="0 0 22 52">
+            <rect x="6" y="26" width="10" height="24" rx="3" fill="#cc1111"/>
+            <rect x="7" y="27" width="4" height="22" rx="2" fill="rgba(255,80,80,0.32)"/>
+            <ellipse cx="11" cy="26" rx="5" ry="3" fill="#dd2222"/>
+            <line x1="11" y1="26" x2="11" y2="19" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
+            <ellipse cx="11" cy="13" rx="5" ry="8" fill="#ff3333" opacity=".95" class="fl-el"/>
+            <ellipse cx="11" cy="14" rx="2.8" ry="5" fill="#ff9900"/>
+            <circle cx="11" cy="8" r="2.2" fill="#fff8aa" opacity=".85"/>
+          </svg>
+        </div>
+      </div>
     </div>
-    
-    <script>
-        // Prevenir navegación en botones "coming soon"
-        document.querySelectorAll('.coming-soon').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Efecto visual de "no disponible"
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-                
-                // Opcional: mostrar mensaje
-                console.log('Esta función estará disponible pronto!');
-            });
-        });
-        
-        // Efecto de sonido hover (opcional)
-        document.querySelectorAll('.option-button:not(.coming-soon)').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                // Aquí podrías agregar un sonido de hover si tienes uno
-            });
-        });
-    </script>
+
+    <div class="ground"></div>
+  </div>
+
+  <div id="status-msg">Sube tus imágenes y presiona el botón para iniciar la magia...</div>
+
+  <div class="controls">
+    <button class="btn-magic" id="btnMagic" onclick="startMagic()">✨ ¡Invocar la Magia!</button>
+    <button class="btn-reset" onclick="resetScene()">↺ Reiniciar</button>
+  </div>
+
+  <div class="footer-note">Hecho con amor y magia morada para Molly 💜</div>
+</div>
+
+<script>
+/* ── IMAGE UPLOAD ── */
+function loadImg(idx, input){
+  if(!input.files||!input.files[0])return;
+  const url=URL.createObjectURL(input.files[0]);
+  // preview in upload button
+  const prev=document.getElementById('upPrev'+idx);
+  prev.src=url; prev.style.display='block';
+  const btn=document.getElementById('upBtn'+idx);
+  btn.querySelector('.icon').style.display='none';
+  btn.querySelector('.hint').style.display='none';
+  // scene image
+  const si=document.getElementById('sceneImg'+idx);
+  si.src=url; si.style.display='block';
+  document.getElementById('ph'+idx).style.display='none';
+}
+
+/* ── STARS ── */
+const SC=document.getElementById('starsC'),sX=SC.getContext('2d');let stars=[];
+function resizeS(){SC.width=innerWidth;SC.height=innerHeight}
+function initS(){resizeS();stars=[];for(let i=0;i<170;i++)stars.push({x:Math.random()*SC.width,y:Math.random()*SC.height,r:Math.random()*1.7+.3,spd:.005+Math.random()*.016,ph:Math.random()*Math.PI*2})}
+function drawS(t){sX.clearRect(0,0,SC.width,SC.height);stars.forEach(s=>{const a=.25+.75*Math.abs(Math.sin(t*.001*s.spd*1000+s.ph));sX.beginPath();sX.arc(s.x,s.y,s.r,0,Math.PI*2);sX.fillStyle=`rgba(255,255,255,${a})`;sX.fill()})}
+window.addEventListener('resize',()=>{resizeS();initS()});
+
+/* ── PARTICLES ── */
+const PC=document.getElementById('pcan'),pX=PC.getContext('2d');let parts=[];
+function resizeP(){const s=document.getElementById('stage');PC.width=s.offsetWidth;PC.height=s.offsetHeight}
+function addPart(type){
+  const w=PC.width,h=PC.height;
+  if(type==='candle'){
+    const cr=document.getElementById('childrenRow'),sr=document.getElementById('stage');
+    const crR=cr.getBoundingClientRect(),srR=sr.getBoundingClientRect();
+    const bx=crR.left-srR.left+crR.width/2,by=crR.top-srR.top+10;
+    for(let i=0;i<4;i++)parts.push({x:bx+(Math.random()-.5)*crR.width*.85,y:by+Math.random()*20,vx:(Math.random()-.5)*1.8,vy:-(Math.random()*2.2+.8),life:1,dec:.017+Math.random()*.02,sz:Math.random()*3.5+1.5,col:Math.random()>.4?'#ff4422':'#ff9900',type:'s'});
+  } else {
+    const cx=w/2,cy=h*.45,a=Math.random()*Math.PI*2,r=100+Math.random()*70;
+    parts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r,vx:(Math.random()-.5)*2.6,vy:-(Math.random()*1.4+.4),life:1,dec:.01+Math.random()*.013,sz:Math.random()*5+2,col:Math.random()>.5?'#bf80ff':'#7b2fff',type:'m'});
+  }
+}
+function drawParts(){pX.clearRect(0,0,PC.width,PC.height);parts=parts.filter(p=>p.life>0);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.life-=p.dec;pX.save();pX.globalAlpha=p.life;pX.beginPath();pX.arc(p.x,p.y,p.sz,0,Math.PI*2);pX.fillStyle=p.col;if(p.type==='m'){pX.shadowBlur=14;pX.shadowColor=p.col}pX.fill();pX.restore()})}
+
+/* ── FLOWERS ── */
+const FC=[{stemH:130,pCount:8,pCol:'#ffd84f',cCol:'#7a3a00',sz:30},{stemH:105,pCount:7,pCol:'#ffe680',cCol:'#5a2800',sz:24},{stemH:155,pCount:8,pCol:'#ffaa22',cCol:'#8a4000',sz:34},{stemH:115,pCount:7,pCol:'#ffd84f',cCol:'#6a3000',sz:27},{stemH:140,pCount:8,pCol:'#fff3a3',cCol:'#7a3a00',sz:29}];
+const NS='http://www.w3.org/2000/svg';
+function mkFlower(cfg,id){
+  const s=document.createElementNS(NS,'svg');
+  const W=cfg.sz*2+22,H=cfg.stemH+cfg.sz*2+12;
+  s.setAttribute('width',W);s.setAttribute('height',H);s.setAttribute('viewBox',`0 0 ${W} ${H}`);s.id='fl-'+id;
+  const cx=W/2,fy=cfg.sz+6;
+  const st=document.createElementNS(NS,'path');st.setAttribute('d',`M${cx} ${fy} Q${cx+9} ${fy+cfg.stemH*.45} ${cx} ${H-6}`);st.setAttribute('stroke','#2d6a1f');st.setAttribute('stroke-width','5');st.setAttribute('fill','none');st.setAttribute('stroke-linecap','round');s.appendChild(st);
+  const lf=document.createElementNS(NS,'ellipse');lf.setAttribute('cx',cx+18);lf.setAttribute('cy',fy+cfg.stemH*.48);lf.setAttribute('rx','13');lf.setAttribute('ry','6');lf.setAttribute('fill','#2a6018');lf.setAttribute('transform',`rotate(-28,${cx+18},${fy+cfg.stemH*.48})`);s.appendChild(lf);
+  const pg=document.createElementNS(NS,'g');pg.id='pg-'+id;
+  for(let i=0;i<cfg.pCount;i++){const p=document.createElementNS(NS,'ellipse');p.setAttribute('cx',cx);p.setAttribute('cy',fy-cfg.sz*.7);p.setAttribute('rx',cfg.sz*.38);p.setAttribute('ry',cfg.sz*.56);p.setAttribute('fill',cfg.pCol);p.setAttribute('opacity','.92');p.setAttribute('transform',`rotate(${(360/cfg.pCount)*i},${cx},${fy})`);p.classList.add('petal-el');pg.appendChild(p)}
+  s.appendChild(pg);
+  const cc=document.createElementNS(NS,'circle');cc.setAttribute('cx',cx);cc.setAttribute('cy',fy);cc.setAttribute('r',cfg.sz*.27);cc.setAttribute('fill',cfg.cCol);cc.id='cc-'+id;s.appendChild(cc);
+  return s;
+}
+
+function initScene(){
+  const fw=document.getElementById('flowersWrap');fw.innerHTML='';
+  FC.forEach((cfg,i)=>fw.appendChild(mkFlower(cfg,i)));
+  document.getElementById('childrenRow').style.opacity='0';
+  document.getElementById('glowOv').style.opacity='0';
+  document.getElementById('status-msg').textContent='Sube tus imágenes y presiona el botón para iniciar la magia...';
+  document.getElementById('btnMagic').disabled=false;
+  magicRunning=false;magicProg=0;parts=[];pX.clearRect(0,0,PC.width,PC.height);
+  // restore scene images if already uploaded
+  for(let i=0;i<3;i++){
+    const prev=document.getElementById('upPrev'+i);
+    const si=document.getElementById('sceneImg'+i);
+    if(prev.src&&prev.src!==window.location.href){si.src=prev.src;si.style.display='block'}
+    else{si.style.display='none'}
+  }
+}
+
+/* ── FLAME FLICKER ── */
+function flickerFlames(t){document.querySelectorAll('.fl-el').forEach((f,i)=>{const sc=1+.2*Math.sin(t*.009+i*2.3);f.setAttribute('ry',(8*sc).toFixed(2));f.setAttribute('cy',(13-(sc-1)*4).toFixed(2))})}
+
+/* ── TRANSFORM FLOWERS ── */
+function transformFlowers(p){
+  FC.forEach((cfg,i)=>{
+    const petals=document.querySelectorAll(`#pg-${i} .petal-el`),cc=document.getElementById('cc-'+i),col=cfg.pCol;
+    const r1=parseInt(col.slice(1,3),16),g1=parseInt(col.slice(3,5),16),b1=parseInt(col.slice(5,7),16);
+    const r=Math.round(r1+(123-r1)*p),g=Math.round(g1+(47-g1)*p),b=Math.round(b1+(255-b1)*p);
+    petals.forEach(el=>el.setAttribute('fill',`rgb(${r},${g},${b})`));
+    if(cc){const cr2=Math.round(122+(40-122)*p),cg2=Math.round(58+(0-58)*p),cb2=Math.round(0+(80-0)*p);cc.setAttribute('fill',`rgb(${cr2},${cg2},${cb2})`)}
+    const sv=document.getElementById('fl-'+i);
+    if(sv&&p>.15)sv.style.filter=`drop-shadow(0 0 ${Math.round((p-.15)/.85*22)}px rgba(123,47,255,${(p*.85).toFixed(2)}))`;
+  });
+}
+
+/* ── MAGIC SEQUENCE ── */
+let magicRunning=false,magicProg=0,rafId,intId;
+function startMagic(){
+  if(magicRunning)return;
+  magicRunning=true;
+  document.getElementById('btnMagic').disabled=true;
+  resizeP();
+  const cr=document.getElementById('childrenRow');cr.style.transition='opacity 1s';cr.style.opacity='1';
+  document.getElementById('status-msg').textContent='Los personajes encienden sus velas rojas...';
+  setTimeout(()=>{
+    document.getElementById('status-msg').textContent='✨ La magia comienza a fluir...';
+    document.getElementById('glowOv').style.opacity='1';
+    intId=setInterval(()=>{addPart('candle');if(magicProg>.08)addPart('magic')},75);
+    let t0=null;const DUR=5200;
+    function step(ts){
+      if(!t0)t0=ts;magicProg=Math.min((ts-t0)/DUR,1);
+      transformFlowers(magicProg);drawParts();flickerFlames(ts);
+      if(magicProg>.5)document.getElementById('status-msg').textContent='💜 Las flores se transforman...';
+      if(magicProg<1){rafId=requestAnimationFrame(step)}
+      else{clearInterval(intId);document.getElementById('status-msg').textContent='💜 ¡La magia morada ha florecido para Molly! 💜';burst();magicRunning=false}
+    }
+    rafId=requestAnimationFrame(step);
+  },1600);
+}
+
+function burst(){
+  const stage=document.getElementById('stage');
+  const em=['✨','💜','🌟','💫','⭐','🔮','🕯️'];
+  for(let i=0;i<20;i++){const el=document.createElement('div');el.className='burst';el.textContent=em[Math.floor(Math.random()*em.length)];const dx=(Math.random()-.5)*220,dy=-(Math.random()*160+50);el.style.setProperty('--dx',dx+'px');el.style.setProperty('--dy',dy+'px');el.style.left=(15+Math.random()*70)+'%';el.style.top=(15+Math.random()*55)+'%';el.style.animationDelay=(Math.random()*.5)+'s';stage.appendChild(el);setTimeout(()=>el.remove(),2100)}
+}
+
+function resetScene(){cancelAnimationFrame(rafId);clearInterval(intId);initScene()}
+
+function loop(t){drawS(t);requestAnimationFrame(loop)}
+initS();initScene();resizeP();requestAnimationFrame(loop);
+</script>
 </body>
 </html>
